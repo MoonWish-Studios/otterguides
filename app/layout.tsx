@@ -1,5 +1,12 @@
 import "./styles/globals.css"
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+import { Readex_Pro } from "next/font/google"
+import Navbar from "./components/Navbar"
+const readex_pro = Readex_Pro({ subsets: ["latin"] })
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en">
       {/*
@@ -7,7 +14,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body className="">{children}</body>
+      <body className={readex_pro.className}>
+        <Navbar />
+        {children}
+      </body>
     </html>
   )
 }
