@@ -4,21 +4,31 @@ export default function VerticalCard({
   city,
   numGuides,
   img,
+  pad,
 }: {
   city: string
   numGuides: string
   img: string
+  pad: boolean
 }) {
+  let possiblePad = pad ? "md:ml-20 ml-12" : ""
+
   return (
-    <div className="outer w-[18rem] shrink-0 rounded-3xl overflow-clip">
+    <div
+      className={`outer w-[18rem] shrink-0 rounded-3xl mr-10 overflow-clip ${possiblePad}`}
+    >
       <div className={` rounded-3xl relative `}>
-        <Image
-          className="object-cover mb-7  z-[-99]"
-          src={img}
-          fill
-          alt={"avatars"}
-        />
-        <div className="content backdrop-brightness-[0.55] rounded-3xl flex flex-col text-white items-center ">
+        <div className={`aspect-w-16 aspect-h-9  `}>
+          <Image
+            className={`object-cover mb-7  z-[-99] `}
+            src={img}
+            fill
+            alt={"avatars"}
+          />
+        </div>
+        <div
+          className={`content backdrop-brightness-[0.55] rounded-3xl  flex flex-col text-white items-center `}
+        >
           <p className="mt-20">explore</p>
 
           <h1 className="pb-16 font-medium text-[2.3rem]">{city}</h1>
