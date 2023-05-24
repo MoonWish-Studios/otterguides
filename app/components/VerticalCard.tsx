@@ -5,18 +5,27 @@ export default function VerticalCard({
   numGuides,
   img,
   pad,
+  unreleased,
 }: {
   city: string
   numGuides: string
   img: string
   pad: boolean
+  unreleased: boolean
 }) {
   let possiblePad = pad ? "md:ml-20 ml-12" : ""
+  let releaseStatus = unreleased ? "" : "hidden"
 
   return (
     <div
-      className={`outer w-[18rem] shrink-0 rounded-3xl mr-10 overflow-clip ${possiblePad}`}
+      className={`outer w-[18rem] shrink-0 relative rounded-3xl mr-10 overflow-clip ${possiblePad}`}
     >
+      <div
+        className={` ${releaseStatus} Cover flex flex-col items-center justify-center bg-gray-400 g backdrop-blur-sm bg-opacity-[0.3] z-[9999] absolute w-full h-full`}
+      >
+        <h1 className="text-white text-3xl font-medium">{city}</h1>
+        <p className="text-white text-lg">Coming Soon!</p>
+      </div>
       <div className={` rounded-3xl relative `}>
         <div className={`aspect-w-16 aspect-h-9  `}>
           <Image

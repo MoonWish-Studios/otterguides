@@ -22,7 +22,7 @@ export default function AboutCard() {
           <p className="lg:w-9/12 md:w-11/12 w-12/12 text-neutral-600 font-light">
             We are both currently college students based in Southern California.
             One of our dreams is to travel to experience new cultures and meet
-            new people. Our goals for Otter Tours is to encourage travelers to
+            new people. Our goals for Otter Guides is to encourage travelers to
             immerse themselves in the local culture of the place they are
             visiting and give them a safe way to do so. We have a lot to improve
             on still so feel free to get in touch with us on any feedback that

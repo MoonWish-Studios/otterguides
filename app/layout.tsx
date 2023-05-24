@@ -1,7 +1,8 @@
 import "./styles/globals.css"
-import { Readex_Pro } from "next/font/google"
+import { Readex_Pro, Pacifico } from "next/font/google"
 import Navbar from "./components/Navbar"
 const readex_pro = Readex_Pro({ subsets: ["latin"] })
+
 export default function RootLayout({
   children,
 }: {
@@ -14,7 +15,7 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body className={readex_pro.className}>
+      <body className={`${readex_pro.className}`}>
         <Navbar />
         {children}
       </body>

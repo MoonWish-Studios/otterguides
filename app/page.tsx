@@ -14,9 +14,6 @@ export default function Home() {
       {/* <HowSection /> */}
 
       <section className="w-full mb-10">
-        <h1 className="mx-20 mt-36 text-3xl mb-10">
-          Local guides in California
-        </h1>
         <CardScroll />
         <WhySection />
 

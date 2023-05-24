@@ -6,6 +6,8 @@ import { useInView } from "react-intersection-observer"
 import HowBlock from "./HowBlock"
 import { useEffect } from "react"
 import { useAnimation } from "framer-motion"
+import { Pacifico } from "next/font/google"
+const pacifico = Pacifico({ weight: "400", subsets: ["latin"] })
 
 // download headwind extension to autosort classnames so we see the same thing
 export default function Landing() {
@@ -53,12 +55,13 @@ export default function Landing() {
       items-center md:items-start "
         >
           <h1
-            className=" lg:w-6/12 text-sky-50 font-medium lg:leading-[1.2] lg:tracking-[0.02] lg:text-7xl 
+            className=" lg:w-7/12 text-sky-50 font-medium lg:leading-[1.2] lg:tracking-[0.02] lg:text-7xl 
           md:w-9/12 md:leading-[1.2] md:tracking-[0.03] md:text-6xl sm:text-6xl text-[2.6rem] leading-[2.8rem] tracking-[0.03] w-11/12"
           >
-            Your local guide in an Otter city
+            Your local guide in an{" "}
+            <span className={pacifico.className}>Otter</span> city
           </h1>
-          <p className="text-cyan-900 md:w-4/12 ml-1 my-6 md:px-0 sm:px-28 px-10 ">
+          <p className="text-cyan-900 md:w-4/12 ml-1 my-6 md:px-0 sm:px-28 px-10 font-pacifico ">
             Giving every traveler the confidence to travel safely and immerse
             themselves in new cultures
           </p>
@@ -77,7 +80,9 @@ export default function Landing() {
         ref={howItWorks}
         className="w-full flex flex-col items-center justify-center"
       >
-        <h1 className="mx-20 mt-36 text-3xl mb-10">How it works</h1>
+        <h1 className="mt-36 text-3xl mb-10 md:text-start text-center w-full md:pl-20">
+          How it works
+        </h1>
         <div className="Blocks grid md:grid-cols-4 lg:mx-24 lg:space-x-8 md:mx-10 md:space-x-6 grid-cols-1">
           {/* <div className="lg:ml-32 md:ml-24 "></div> */}
           <HowBlock img={"/assets/icons/how1.png"} title={"Select your city"}>

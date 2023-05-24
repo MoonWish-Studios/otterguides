@@ -4,6 +4,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import React, { useEffect, useState } from "react"
 import NavLink from "./NavLink"
+import { Pacifico } from "next/font/google"
+const pacifico = Pacifico({ weight: "400", subsets: ["latin"] })
 
 export default function Navbar({ className }: { className?: string }) {
   const pathname = usePathname()
@@ -21,15 +23,11 @@ export default function Navbar({ className }: { className?: string }) {
     <div className={`${transparent} lg:mx-auto  w-full z-[999]  ${className} `}>
       <div className="flex items-center justify-between py-1 ">
         {/* Logo */}
-        <Link className="my-2 ml-5" href="/">
-          <Image
-            className="filter "
-            src={"/assets/icons/logo.png"}
-            alt="company logo"
-            width="170"
-            height="120"
-          />
-        </Link>
+        <h1 className={pacifico.className}>
+          <p className="text-[2.5rem] font-light text-white ml-10 mt-3">
+            Otter
+          </p>
+        </h1>
         {/* Hamburger Menu */}
         <div
           onClick={() => setOpen(!open)}
