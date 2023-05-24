@@ -3,7 +3,9 @@ import WhyBlock from "./WhyBlock"
 export default function WhySection() {
   return (
     <div className="w-full flex flex-col items-center justify-center">
-      <h1 className="mx-20 mt-36 text-3xl mb-10">Why choose us?</h1>
+      <h1 className="mx-20 mt-36 text-3xl mb-10 md:text-start text-center w-full md:pl-20">
+        Why choose us?
+      </h1>
       <div className="Blocks grid md:grid-cols-3 lg:pl-10 lg:mx-24 lg:space-x-8 md:mx-10 md:space-x-6 grid-cols-1">
         <WhyBlock
           img={"/assets/icons/why1.png"}
