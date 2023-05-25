@@ -189,6 +189,9 @@ function MedGuideCard(guide: GuideProps) {
       {/* Guide Highlights */}
       <div className="flex flex-col">
         <GuideHighlights highlights={guide.highlights} />
+        <p className="mt-6 mb-2 md:text-base text-sm">
+          ${guide.price}/person · {guide.duration} hours
+        </p>
         <GuideButton href={guide.id} />
       </div>
     </div>
@@ -226,6 +229,9 @@ function ExpandedGuideCard(guide: GuideProps) {
       {/* Guide Highlights */}
       <div className="flex flex-col">
         <GuideHighlights highlights={guide.highlights} />
+        <p className="mt-6 mb-2 md:text-base text-sm">
+          ${guide.price}/person · {guide.duration} hours
+        </p>
         <GuideButton href={guide.id} />
       </div>
     </div>
@@ -286,6 +292,9 @@ function SmallGuideCard(guide: GuideProps) {
           </>
         )}
       </div>
+      <p className="mt-6 mb-2 md:text-base text-sm">
+        ${guide.price}/person · {guide.duration} hours
+      </p>
       <GuideButton href={guide.id} />
     </div>
   )

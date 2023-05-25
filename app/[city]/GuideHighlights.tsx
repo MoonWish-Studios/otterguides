@@ -48,7 +48,6 @@ export function GuideButton({
 }) {
   return (
     <div className="flex flex-col justify-end ">
-      <p className="mt-6 mb-2 md:text-base text-sm">$35/person · 6 hours</p>
       <Link
         href={`/guide/${href}`}
         className="flex-none text-center rounded-xl bg-cyan-300 md:max-w-xl px-6 py-2.5 text-sm md:text-base"
