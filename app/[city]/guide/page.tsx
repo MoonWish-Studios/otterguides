@@ -193,7 +193,9 @@ function GuideSimpleProfile() {
       />
       <div>
         <h1 className="font-regular text-md text-neutral-900">{guide.name}</h1>
-        <p className=" text-neutral-400 font-light">I'm excited to meet you!</p>
+        <p className=" text-neutral-400 font-light">
+          I&quot;m excited to meet you!
+        </p>
       </div>
     </div>
   )
