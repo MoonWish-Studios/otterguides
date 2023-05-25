@@ -1,22 +1,22 @@
 "use client"
 import Image from "next/image"
-import TextLeftIcon from "./TextLeftIcon"
-import GuideHighlights, { GuideButton } from "./GuideHighlights"
+import TextLeftIcon from "../components/TextLeftIcon"
+import GuideHighlights, { GuideButton } from "../components/GuideHighlights"
 import { nanoid } from "nanoid"
-import useWindowSize from "./useScreensize"
+import useWindowSize from "../components/useScreensize"
 // import { useMediaQuery } from "react-responsive"
 import { VT323 } from "next/font/google"
 import { useState } from "react"
-import Reviews from "./Reviews"
-import GuideInterests, { Interest } from "./Interests"
+import Reviews from "../components/Reviews"
+import GuideInterests, { Interest } from "../components/Interests"
 const vt323 = VT323({ weight: "400", subsets: ["latin"] })
 
 export default function Experience({}) {
   return (
     <div className="flex justify-center">
       <div className="flex-col">
-        {GUIDES.map((guide) => (
-          <GuideCard {...guide} />
+        {GUIDES.map((guide, i) => (
+          <GuideCard key={i} {...guide} />
         ))}
       </div>
     </div>
