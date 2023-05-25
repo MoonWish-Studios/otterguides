@@ -4,11 +4,12 @@ const vt323 = VT323({ weight: "400", subsets: ["latin"] })
 
 export default function Reviews() {
   return (
-    <div className="flex items-center ">
+    <div className="flex items-baseline">
       {/* Star SVG */}
       <svg
         width="20"
         height="20"
+        className="self-center"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -19,11 +20,13 @@ export default function Reviews() {
         />
       </svg>
       <p
-        className={`reviewShadow text-lg md:text-2xl  ml-1 ${vt323.className}`}
+        className={`reviewShadow text-xl md:text-2xl  ml-1 ${vt323.className}`}
       >
         4.86
       </p>
-      <p className="md:text-base text-sm text-neutral-500 ml-3">16 reviews</p>
+      <p className="underline  md:text-base text-sm text-neutral-500 ml-3">
+        16 reviews
+      </p>
     </div>
   )
 }

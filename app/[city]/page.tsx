@@ -26,7 +26,7 @@ export default function Experience({}) {
 const GUIDES = [
   {
     name: "Kamari Ababuo",
-    employment: "",
+    employment: "Soccer Coach",
     languages: ["English", "Afrikaans", "Swahiili"],
     bio: "Lorem ipsum dolor sit amet consectetur. Volutpat lacus fermentum mattis arcu. Et mi sapien quisque lorem. Etiam sit tellus lorem augue elementum. Gravida adipiscing tellus mattis gravida sed elementum turpis euismod enim. Nunc pharetra et viverra sed posuere massa viverra.",
     interests: [
@@ -56,7 +56,7 @@ const GUIDES = [
   },
   {
     name: "Kamari Ababuo",
-    employment: "",
+    employment: "Soccer Coach",
     languages: ["English", "Afrikaans", "Swahiili"],
     bio: "Lorem ipsum dolor sit amet consectetur. Volutpat lacus fermentum mattis arcu. Et mi sapien quisque lorem. Etiam sit tellus lorem augue elementum. Gravida adipiscing tellus mattis gravida sed elementum turpis euismod enim. Nunc pharetra et viverra sed posuere massa viverra.",
     interests: [
@@ -86,7 +86,7 @@ const GUIDES = [
   },
   {
     name: "Kamari Ababuo",
-    employment: "",
+    employment: "Soccer Coach",
     languages: ["English", "Afrikaans", "Swahiili"],
     bio: "Lorem ipsum dolor sit amet consectetur. Volutpat lacus fermentum mattis arcu. Et mi sapien quisque lorem. Etiam sit tellus lorem augue elementum. Gravida adipiscing tellus mattis gravida sed elementum turpis euismod enim. Nunc pharetra et viverra sed posuere massa viverra.",
     interests: [
@@ -235,7 +235,7 @@ function ExpandedGuideCard(guide: GuideProps) {
 function SmallGuideCard(guide: GuideProps) {
   const [expandCard, setExpandCard] = useState(true)
   return (
-    <div className="h-fit w-fit rounded-lg m-4 p-5 border border-neutral-300 flex-col relative">
+    <div className="h-fit w-fit rounded-lg m-4 sm:p-5 p-3 border border-neutral-300 flex-col relative">
       {/* Expand/Collapse Button */}
       <button
         className=" underline cursor-pointer float-right text-neutral-400 font-light text-sm"
