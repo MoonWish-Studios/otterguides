@@ -39,7 +39,13 @@ export default function GuideHighlights({
     </div>
   )
 }
-export function GuideButton({ href }: { href: string | number }) {
+export function GuideButton({
+  href,
+  label,
+}: {
+  href: string | number
+  label?: string
+}) {
   return (
     <div className="flex flex-col justify-end ">
       <p className="mt-6 mb-2 md:text-base text-sm">$35/person · 6 hours</p>
@@ -47,7 +53,7 @@ export function GuideButton({ href }: { href: string | number }) {
         href={`/guide/${href}`}
         className="flex-none text-center rounded-xl bg-cyan-300 md:max-w-xl px-6 py-2.5 text-sm md:text-base"
       >
-        View Guide
+        {label || "View Guide"}
       </Link>
     </div>
   )

@@ -1,5 +1,6 @@
 import Image from "next/image"
 import React from "react"
+import { GuideButton } from "../GuideHighlights"
 import Reviews from "../Reviews"
 
 const guide = {
@@ -46,23 +47,31 @@ export default function Page() {
         <div className="my-4">
           {/* label */}
           <div className="grid grid-cols-2 grid-flow-row-dense border rounded-xl border-neutral-200">
-            <label className="font-medium p-3">
+            <label className="font-medium p-3 text-sm">
               Date
-              <input className="block font-normal " type="date" />
+              <input
+                className="block  text-base font-light w-full text-neutral-900 "
+                value={getDate()}
+                type="date"
+              />
             </label>
-            <label className="font-medium p-3 border-l ">
+            <label className="font-medium  text-sm p-3 border-l ">
               Guests
-              <select className="block font-normal">
+              <select className="block font-light text-base">
                 <option>1 guest</option>
+                <option>2 guest</option>
+                <option>3 guest</option>
+                <option>4 guest</option>
               </select>
             </label>
             <div className="col-span-2 border-t p-3">
-              <label className="font-medium ">Guide</label>
+              <label className="font-medium text-sm ">Guide</label>
               <GuideSimpleProfile />
             </div>
           </div>
         </div>
         {/* Reserve button */}
+        <GuideButton href="#" label="Reserve" />
         {/* Cost Block */}
       </div>
       <div>
@@ -83,20 +92,24 @@ function GuidePrice({ price }: { price: number | string }) {
 
 function GuideSimpleProfile() {
   return (
-    <div className="flex gap-2 my-4">
+    <div className="flex items-center gap-4 mt-2 mb-1">
       <Image
         alt="Guide Profile Picture"
-        className="object-cover rounded-full w-12 h-12 outline outline-cyan-400"
+        className="object-cover rounded-full w-12 h-12 outline outline-cyan-400 outline-2 outline-offset-1"
         src={guide.avatar}
         width={100}
         height={100}
       />
       <div>
-        <h1 className="font-base text-lg text-neutral-700">{guide.name}</h1>
-        <p className="text-md text-neutral-400 font-light">
-          I'm excited to meet you!
-        </p>
+        <h1 className="font-regular text-md text-neutral-900">{guide.name}</h1>
+        <p className=" text-neutral-400 font-light">I'm excited to meet you!</p>
       </div>
     </div>
   )
+}
+
+function getDate() {
+  const offset = new Date().getTimezoneOffset()
+  const date = new Date(new Date().getTime() - offset * 60 * 1000)
+  return date.toISOString().split("T")[0]
 }
