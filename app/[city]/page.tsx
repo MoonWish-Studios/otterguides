@@ -257,7 +257,7 @@ export const GUIDES = [
   },
 ]
 
-interface GuideProps {
+export interface GuideProps {
   name: string
   employment: string
   languages: string[]
@@ -270,6 +270,8 @@ interface GuideProps {
   avatar: string
   highlights: string[]
   id: string | number
+  image: string
+  itinerary: { title: string; description: string }[]
   location: string
 }
 export function GuideCard({
@@ -470,7 +472,7 @@ function SmallGuideCard({
       <p className="mt-6 mb-2 md:text-base text-sm">
         ${guide.price}/person · {guide.duration} hours
       </p>
-      <GuideButton href={guide.id} />
+      {!hideHighlights && <GuideButton href={guide.id} />}
     </div>
   )
 }

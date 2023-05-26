@@ -10,7 +10,7 @@ export default function Reviews({
   reviewCount: number
 }) {
   return (
-    <div className="flex items-baseline flex-none">
+    <div className="flex items-baseline ">
       {/* Star SVG */}
       <svg
         width="20"
@@ -28,7 +28,7 @@ export default function Reviews({
       <p
         className={`reviewShadow text-xl md:text-2xl  ml-1 ${vt323.className}`}
       >
-        {rating}
+        {rating.toFixed(2)}
       </p>
       <p className="underline  md:text-base text-sm   text-neutral-500 ml-3 ">
         {reviewCount} reviews
