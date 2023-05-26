@@ -2,7 +2,13 @@
 import { VT323 } from "next/font/google"
 const vt323 = VT323({ weight: "400", subsets: ["latin"] })
 
-export default function Reviews() {
+export default function Reviews({
+  rating,
+  reviewCount,
+}: {
+  rating: number
+  reviewCount: number
+}) {
   return (
     <div className="flex items-baseline">
       {/* Star SVG */}
@@ -22,10 +28,10 @@ export default function Reviews() {
       <p
         className={`reviewShadow text-xl md:text-2xl  ml-1 ${vt323.className}`}
       >
-        4.86
+        {rating}
       </p>
       <p className="underline  md:text-base text-sm text-neutral-500 ml-3">
-        16 reviews
+        {reviewCount} reviews
       </p>
     </div>
   )

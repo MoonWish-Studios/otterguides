@@ -89,12 +89,11 @@ export default function Page() {
       </div>
       <h1>See other guides available</h1>
       <div className="flex  overflow-x-scroll">
-        <GuideCard {...guide} />
-        <GuideCard {...guide} />
-        <GuideCard {...guide} />
-        <GuideCard {...guide} />
-        <GuideCard {...guide} />
-        <GuideCard {...guide} />
+        <GuideCard guide={guide} hideHighlight />
+        <GuideCard guide={guide} hideHighlight />
+        <GuideCard guide={guide} hideHighlight />
+        <GuideCard guide={guide} hideHighlight />
+        <GuideCard guide={guide} hideHighlight />
       </div>
     </div>
   )
