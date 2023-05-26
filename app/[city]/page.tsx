@@ -23,7 +23,7 @@ export default function Experience({}) {
   )
 }
 
-const GUIDES = [
+export const GUIDES = [
   {
     name: "Luna Santiago",
     employment: "Street Artist",
@@ -292,12 +292,12 @@ export function GuideCard({
   return (
     <div className="shrink-0">
       {isLarge ? (
-        <ExpandedGuideCard guide={guide} hideHighlight={hideHighlights} />
+        <ExpandedGuideCard guide={guide} hideHighlights={hideHighlights} />
       ) : isMedium ? (
-        <MedGuideCard guide={guide} hideHighlight={hideHighlights} />
+        <MedGuideCard guide={guide} hideHighlights={hideHighlights} />
       ) : (
         isMobile && (
-          <SmallGuideCard guide={guide} hideHighlight={hideHighlights} />
+          <SmallGuideCard guide={guide} hideHighlights={hideHighlights} />
         )
       )}
     </div>
@@ -313,7 +313,7 @@ function MedGuideCard({
   return (
     <div className="h-fit w-fit rounded-lg m-4 p-5 border border-neutral-300 flex">
       {/* Guide Profile */}
-      <div className="ml-4 max-w-xl  pr-4 mr-8 border-r">
+      <div className="ml-4 max-w-xl  pr-4">
         <div className="flex gap-2">
           {/* Avatar Profile */}
           <div className=" h-20 w-20 relative rounded-full bg-neutral-400 shrink-0 overflow-clip">
@@ -345,7 +345,7 @@ function MedGuideCard({
       </div>
       {/* Guide Highlights */}
       {!hideHighlights && (
-        <div className="flex flex-col">
+        <div className="flex flex-col pl-8 border-l">
           <GuideHighlights highlights={guide.highlights} />
           <p className="mt-6 mb-2 md:text-base text-sm">
             ${guide.price}/person · {guide.duration} hours
@@ -376,7 +376,7 @@ function ExpandedGuideCard({
         />
       </div>
       {/* Guide Profile */}
-      <div className="ml-4 max-w-xl  pr-4 mr-8 border-r">
+      <div className="ml-4 max-w-xl  pr-4  ">
         {/* Name */}
         <h1 className="font-medium text-xl">{guide.name}</h1>
         {/* Employment */}
@@ -393,7 +393,7 @@ function ExpandedGuideCard({
       </div>
       {/* Guide Highlights */}
       {!hideHighlights && (
-        <div className="flex flex-col">
+        <div className="flex flex-col border-l pl-8">
           <GuideHighlights highlights={guide.highlights} />
           <p className="mt-6 mb-2 md:text-base text-sm">
             ${guide.price}/person · {guide.duration} hours
@@ -436,7 +436,7 @@ function SmallGuideCard({
           </div>
 
           {/* Guide Info */}
-          <div>
+          <div className="shrink-0">
             {/* Name */}
             <h1 className="font-medium text-base">Kamari Ababuo</h1>
             {/* Employment */}

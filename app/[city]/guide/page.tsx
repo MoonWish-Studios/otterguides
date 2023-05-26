@@ -8,44 +8,44 @@ import GuideHighlights, {
 import Reviews from "../../components/Reviews"
 import GoogleMapReact from "google-map-react"
 import { Wrapper } from "@googlemaps/react-wrapper"
-import { GuideCard } from "../page"
+import { GuideCard, GUIDES } from "../page"
 
 const guide = {
-  name: "Kamari Ababuo",
-  employment: "Soccer Coach",
-  languages: ["English", "Afrikaans", "Swahiili"],
-  bio: "Lorem ipsum dolor sit amet consectetur. Volutpat lacus fermentum mattis arcu. Et mi sapien quisque lorem. Etiam sit tellus lorem augue elementum. Gravida adipiscing tellus mattis gravida sed elementum turpis euismod enim. Nunc pharetra et viverra sed posuere massa viverra.",
+  name: "Alessia Rossi",
+  employment: "Fashion Stylist",
+  languages: ["English", "Italian", "French"],
+  bio: "Ciao! I'm Alessia, a fashion stylist with an eye for trends and a love for personal style. Join me on a stylish journey through the city's hidden boutiques, fashion districts, and iconic fashion landmarks. We'll discover unique designer pieces, learn about fashion history, and even create your own signature looks. Get ready to elevate your style and embrace the city's fashion-forward energy!",
   interests: [
-    "Math",
-    "Cycling",
-    "Food",
-    "Travel",
-    "Dance",
-    "Photography",
-    "Skincare",
-    "Soccer",
+    "Fashion",
+    "Shopping",
+    "Street style",
+    "Vintage fashion",
+    "Fashion photography",
+    "Fashion history",
+    "Personal styling",
+    "Designer brands",
+    "Fashion events",
+    "Fashion blogging",
   ],
-  rating: 4.86,
-  reviews: 17,
-  price: 35,
-  duration: 6,
-  id: 1,
+  rating: 4.8,
+  reviews: 120,
+  price: 90,
+  duration: 4,
   avatar:
-    "https://images.unsplash.com/photo-1564109799258-6b7c25cd1c92?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3418&q=80",
+    "https://images.unsplash.com/photo-1592621385612-4d7129426394?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
   highlights: [
-    "Kayak along Long Beach",
-    "City highlights",
-    "Join a Reggaeton",
-    "Enjoy tasty local foods",
-    "Wine tasting",
+    "Hidden boutiques",
+    "Fashion district tour",
+    "Creating signature looks",
+    "Capturing street style",
+    "Fashion-forward energy",
   ],
-  location:
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13260.034298428562!2d-117.93699864458009!3d33.81209180000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dcd7d12b3b5e6b%3A0x2ef62f8418225cfa!2sDisneyland%20Park!5e0!3m2!1sen!2sus!4v1684991430488!5m2!1sen!2sus",
+  id: 6,
+  location: "https://www.google.com/maps?q=Milan",
 }
-
 export default function Page() {
   return (
-    <div>
+    <div className="mx-6">
       <div className="flex justify-center  items-start mt-20">
         {/* Image Carasoul */}
         <div className="flex-col w-3/5">
@@ -82,18 +82,20 @@ export default function Page() {
               city has to offer!
             </Hightlight>
           </ul>
-          <h1 className="text-xl font-medium">Meet your guide</h1>
-          <GuideCard {...guide} />
         </div>
         <GuideReserveCard />
       </div>
-      <h1>See other guides available</h1>
-      <div className="flex  overflow-x-scroll">
-        <GuideCard guide={guide} hideHighlight />
-        <GuideCard guide={guide} hideHighlight />
-        <GuideCard guide={guide} hideHighlight />
-        <GuideCard guide={guide} hideHighlight />
-        <GuideCard guide={guide} hideHighlight />
+      <div className=" ml-8 ">
+        <h1 className="text-xl font-medium">Meet your guide</h1>
+        <GuideCard guide={guide} hideHighlights />
+        <h1 className="text-xl font-medium mt-20">
+          Explore other guides in your area
+        </h1>
+        <div className="flex flex-col overflow-x-scroll">
+          {GUIDES.map((guide, i) => (
+            <GuideCard key={i} guide={guide} hideHighlights={false} />
+          ))}
+        </div>
       </div>
     </div>
   )
@@ -113,7 +115,7 @@ export function GuideReserveCard() {
           {/* Price */}
           <GuidePrice price={guide.price} />
           {/* Review */}
-          <Reviews />
+          <Reviews rating={guide.rating} reviewCount={guide.reviews} />
           {/* Option Block */}
           <div className="my-4">
             {/* label */}
@@ -213,9 +215,7 @@ function GuideSimpleProfile() {
       />
       <div>
         <h1 className="font-regular text-md text-neutral-900">{guide.name}</h1>
-        <p className=" text-neutral-400 font-light">
-          I&quot;m excited to meet you!
-        </p>
+        <p className=" text-neutral-400 font-light">I'm excited to meet you!</p>
       </div>
     </div>
   )

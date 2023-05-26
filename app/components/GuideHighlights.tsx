@@ -45,7 +45,7 @@ export default function GuideHighlights({
   highlights: string[]
 }) {
   return (
-    <div className="w-60 shrink-0 md:mt-0 mt-4 ">
+    <div className="w-64 shrink-0 md:mt-0 mt-4 ">
       <h3 className="font-medium text-sm md:text-base text-neutral-700 ">
         Guide Highlights
       </h3>
