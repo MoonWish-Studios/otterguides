@@ -53,6 +53,7 @@ const GUIDES = [
       "Enjoy tasty local foods",
       "Wine tasting",
     ],
+    location: "as",
   },
   {
     name: "Kamari Ababuo",
@@ -83,6 +84,7 @@ const GUIDES = [
       "Enjoy tasty local foods",
       "Wine tasting",
     ],
+    location: "as",
   },
   {
     name: "Kamari Ababuo",
@@ -113,6 +115,7 @@ const GUIDES = [
       "Enjoy tasty local foods",
       "Wine tasting",
     ],
+    location: "",
   },
 ]
 
@@ -129,8 +132,9 @@ interface GuideProps {
   avatar: string
   highlights: string[]
   id: string | number
+  location: string
 }
-function GuideCard(props: GuideProps) {
+export function GuideCard(props: GuideProps) {
   // const isLarge = useMediaQuery({
   // query: "(min-width: 1024px)",
   // })
@@ -241,7 +245,7 @@ function ExpandedGuideCard(guide: GuideProps) {
 function SmallGuideCard(guide: GuideProps) {
   const [expandCard, setExpandCard] = useState(true)
   return (
-    <div className="h-fit w-fit rounded-lg m-4 sm:p-5 p-3 border border-neutral-300 flex-col relative">
+    <div className="h-fit rounded-lg sm:p-5 p-3 border border-neutral-300 flex-col relative">
       {/* Expand/Collapse Button */}
       <button
         className=" underline cursor-pointer float-right text-neutral-400 font-light text-sm"

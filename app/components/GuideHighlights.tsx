@@ -1,9 +1,17 @@
 import { nanoid } from "nanoid"
 import Link from "next/link"
 
-function Hightlight({ children }: { children: React.ReactNode }) {
+export function Hightlight({
+  detailed = false,
+  title,
+  children,
+}: {
+  detailed?: boolean
+  title: string
+  children: React.ReactNode
+}) {
   return (
-    <li className="mb-3 ml-2 md:mb-4 relative md:ml-6">
+    <div className="mb-3 ml-2 md:mb-4 relative md:ml-6">
       <span className="absolute flex items-center justify-center w-2.5 h-2.5 -left-3.5 top-1 md:w-6 md:h-6 md:-left-[37px] md:top-0 ">
         <svg
           width="12"
@@ -15,10 +23,20 @@ function Hightlight({ children }: { children: React.ReactNode }) {
           <circle cx="4" cy="4" r="4" fill="#22D3EE" />
         </svg>
       </span>
-      <h3 className="flex items-center mb-1 pl-1 text-sm font-regular md:text-base text-neutral-500">
-        {children}
-      </h3>
-    </li>
+
+      {detailed ? (
+        <>
+          <h3 className="font-medium">{title}</h3>
+          <p className="flex items-center mb-1 text-sm font-regular md:text-base text-neutral-500">
+            {children}
+          </p>
+        </>
+      ) : (
+        <h3 className="flex items-center mb-1 pl-1 text-sm font-regular md:text-base text-neutral-500">
+          {children}
+        </h3>
+      )}
+    </div>
   )
 }
 export default function GuideHighlights({

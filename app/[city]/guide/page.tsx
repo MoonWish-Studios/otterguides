@@ -1,9 +1,14 @@
 "use client"
 import Image from "next/image"
-import React, { useState } from "react"
-import { GuideButton } from "../../components/GuideHighlights"
+import React, { useEffect, useRef, useState } from "react"
+import GuideHighlights, {
+  GuideButton,
+  Hightlight,
+} from "../../components/GuideHighlights"
 import Reviews from "../../components/Reviews"
 import GoogleMapReact from "google-map-react"
+import { Wrapper } from "@googlemaps/react-wrapper"
+import { GuideCard } from "../page"
 
 const guide = {
   name: "Kamari Ababuo",
@@ -34,18 +39,77 @@ const guide = {
     "Enjoy tasty local foods",
     "Wine tasting",
   ],
+  location:
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13260.034298428562!2d-117.93699864458009!3d33.81209180000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dcd7d12b3b5e6b%3A0x2ef62f8418225cfa!2sDisneyland%20Park!5e0!3m2!1sen!2sus!4v1684991430488!5m2!1sen!2sus",
 }
 
 export default function Page() {
+  return (
+    <div>
+      <div className="flex justify-center  items-start mt-20">
+        {/* Image Carasoul */}
+        <div className="flex-col w-3/5">
+          <div className="shrink-0 w-full h-[26rem] rounded-lg bg-neutral-200"></div>
+          <ul className="list-outside list-disc relative border-l border-cyan-200 ml-2 mt-8">
+            <Hightlight detailed title="10 Tastings">
+              This tour includes 10 food and drink tastings. Your local host has
+              hand-picked each one of the tastings based on their love for food,
+              and knowledge of the city. Enjoy only the most authentic bites the
+              city has to offer!
+            </Hightlight>
+            <Hightlight detailed title="10 Tastings">
+              This tour includes 10 food and drink tastings. Your local host has
+              hand-picked each one of the tastings based on their love for food,
+              and knowledge of the city. Enjoy only the most authentic bites the
+              city has to offer!
+            </Hightlight>
+            <Hightlight detailed title="10 Tastings">
+              This tour includes 10 food and drink tastings. Your local host has
+              hand-picked each one of the tastings based on their love for food,
+              and knowledge of the city. Enjoy only the most authentic bites the
+              city has to offer!
+            </Hightlight>
+            <Hightlight detailed title="10 Tastings">
+              This tour includes 10 food and drink tastings. Your local host has
+              hand-picked each one of the tastings based on their love for food,
+              and knowledge of the city. Enjoy only the most authentic bites the
+              city has to offer!
+            </Hightlight>
+            <Hightlight detailed title="10 Tastings">
+              This tour includes 10 food and drink tastings. Your local host has
+              hand-picked each one of the tastings based on their love for food,
+              and knowledge of the city. Enjoy only the most authentic bites the
+              city has to offer!
+            </Hightlight>
+          </ul>
+          <h1 className="text-xl font-medium">Meet your guide</h1>
+          <GuideCard {...guide} />
+        </div>
+        <GuideReserveCard />
+      </div>
+      <h1>See other guides available</h1>
+      <div className="flex  overflow-x-scroll">
+        <GuideCard {...guide} />
+        <GuideCard {...guide} />
+        <GuideCard {...guide} />
+        <GuideCard {...guide} />
+        <GuideCard {...guide} />
+        <GuideCard {...guide} />
+      </div>
+    </div>
+  )
+}
+
+export function GuideReserveCard() {
   const [guestCount, setGuestCount] = useState(1)
 
   const handleGuestChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setGuestCount(parseInt(e.target.value))
   }
   return (
-    <div>
+    <div className="max-w-sm mx-4">
       {/* Reserve Card */}
-      <div className="flex-col m-4 relative">
+      <div className="flex-col  relative">
         <div className=" p-3 sm:p-5 border z-10 relative border-neutral-300 rounded-xl bg-white">
           {/* Price */}
           <GuidePrice price={guide.price} />
@@ -90,66 +154,23 @@ export default function Page() {
           <GuideTotalCost price={guide.price} guestCount={guestCount} />
           {/* Map */}
         </div>
-        <Map src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13260.034298428562!2d-117.93699864458009!3d33.81209180000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dcd7d12b3b5e6b%3A0x2ef62f8418225cfa!2sDisneyland%20Park!5e0!3m2!1sen!2sus!4v1684991430488!5m2!1sen!2sus" />
+        <Map src={guide.location} />
       </div>
     </div>
   )
 }
 
-function MapMarker() {
-  return (
-    <div>
-      <svg
-        width="48"
-        height="71"
-        viewBox="0 0 48 71"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle
-          cx="24"
-          cy="49"
-          r="21.5"
-          fill="#34F3FF"
-          fillOpacity="0.28"
-          stroke="#06B6D4"
-        />
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M12.1208 9.72059C18.6816 3.15979 29.3188 3.15979 35.8796 9.72059C42.4404 16.2814 42.4404 26.9186 35.8796 33.4794L24.0002 45.3588L12.1208 33.4794C5.55999 26.9186 5.55999 16.2814 12.1208 9.72059ZM24.0002 26.4C26.6512 26.4 28.8002 24.251 28.8002 21.6C28.8002 18.949 26.6512 16.8 24.0002 16.8C21.3492 16.8 19.2002 18.949 19.2002 21.6C19.2002 24.251 21.3492 26.4 24.0002 26.4Z"
-          fill="#38BDF8"
-        />
-      </svg>
-    </div>
-  )
-}
 function Map({ src }: { src: string }) {
   return (
-    <div
-      style={{ height: "50vh", width: "100%" }}
-      className=" -translate-y-2 rounded-b-xl border border-neutral-300"
-    >
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: "AIzaSyBuAXrF1Xr1vbPIirxv2JYMoUQXnRXX9PM" }}
-        defaultCenter={{ lat: 59.95, lng: 30.33 }}
-        options={{
-          disableDefaultUI: true,
-          gestureHandling: "cooperative",
-        }}
-        yesIWantToUseGoogleMapApiInternals
-        defaultZoom={11}
-      >
-        <MapMarker lat={59.955413} lng={30.337844} />
-      </GoogleMapReact>
-      {/* <iframe
+    <div className=" -translate-y-2 rounded-b-xl border border-neutral-300">
+      <iframe
         src={src}
-        className="w-full h-60"
+        className="w-full h-60 "
         style={{ border: 0 }}
         allowFullScreen={false}
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
-      ></iframe> */}
+      ></iframe>
     </div>
   )
 }
