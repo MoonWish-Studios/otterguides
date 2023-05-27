@@ -1,5 +1,6 @@
 "use client"
 import Image from "next/image"
+import Link from "next/link"
 import React, { use, useEffect, useRef, useState } from "react"
 import GuideHighlights, {
   GuideButton,
@@ -31,6 +32,10 @@ export default function Page() {
             allowFullScreen
             className="touch-none"
           ></iframe>
+          <h3>We were unable to find this user</h3>
+          <Link className="underline " href="/guide">
+            Go Home
+          </Link>
         </div>
       ) : (
         <div className=" md:mx-auto max-w-7xl mx-6 flex flex-col items-center justify-center">

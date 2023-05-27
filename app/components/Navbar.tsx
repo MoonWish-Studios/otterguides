@@ -24,9 +24,7 @@ export default function Navbar({ className }: { className?: string }) {
       <div className="flex items-center justify-between py-1 ">
         {/* Logo */}
         <h1 className={pacifico.className}>
-          <p className="text-[2.5rem] font-light text-white ml-10 mt-3">
-            Otter
-          </p>
+          <p className="text-[2.5rem] text-cyan-400  ml-10 mt-3">Otter</p>
         </h1>
         {/* Hamburger Menu */}
         <div

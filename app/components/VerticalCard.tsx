@@ -51,7 +51,9 @@ export default function VerticalCard({
             alt={"avatars"}
           />
 
-          <Button className="mb-8 text-black">Explore</Button>
+          <Button href="/guide" className="mb-8 text-black">
+            Explore
+          </Button>
         </div>
       </div>
     </div>
