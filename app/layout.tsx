@@ -1,4 +1,3 @@
-"use client"
 import "./styles/globals.css"
 import { Readex_Pro, Pacifico } from "next/font/google"
 import Navbar from "./components/Navbar"

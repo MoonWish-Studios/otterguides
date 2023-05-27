@@ -14,7 +14,9 @@ const useWindowSize = () => {
         height: window.innerHeight,
       })
     }
+    console.log(window.innerHeight)
 
+    handleResize()
     window.addEventListener("resize", handleResize)
 
     // Clean up the event listener on unmount

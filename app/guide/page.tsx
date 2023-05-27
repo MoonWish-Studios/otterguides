@@ -1,4 +1,3 @@
-"use client"
 import { nanoid } from "nanoid"
 import { GUIDES } from "../components/GUIDES"
 import { GuideCard, GuideProps } from "../components/GuideCard"
