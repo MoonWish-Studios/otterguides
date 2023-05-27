@@ -1,9 +1,6 @@
 lockfileVersion: '6.0'
 
 dependencies:
-  '@googlemaps/react-wrapper':
-    specifier: ^1.1.35
-    version: 1.1.35(react@18.2.0)
   '@types/node':
     specifier: 18.11.11
     version: 18.11.11
@@ -22,9 +19,6 @@ dependencies:
   framer-motion:
     specifier: ^10.12.12
     version: 10.12.12(react-dom@18.2.0)(react@18.2.0)
-  google-map-react:
-    specifier: ^2.2.1
-    version: 2.2.1(react-dom@18.2.0)(react@18.2.0)
   nanoid:
     specifier: ^4.0.2
     version: 4.0.2
@@ -48,9 +42,6 @@ dependencies:
     version: 4.9.3
 
 devDependencies:
-  '@types/google-map-react':
-    specifier: ^2.1.7
-    version: 2.1.7
   autoprefixer:
     specifier: ^10.4.14
     version: 10.4.14(postcss@8.4.23)
@@ -103,21 +94,6 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
-    dev: false
-
-  /@googlemaps/js-api-loader@1.15.2:
-    resolution: {integrity: sha512-8FJwvd1F5Zxs/kDuH/ESFwSjOY0ZyGVkPDyv2VmC9cg8n1vPUKmvZJh/EzoikC/Z5itGMTRfcxmvSapXAi0+zQ==}
-    dependencies:
-      fast-deep-equal: 3.1.3
-    dev: false
-
-  /@googlemaps/react-wrapper@1.1.35(react@18.2.0):
-    resolution: {integrity: sha512-vK+BDQMHN0Oqr66cW3ZPWVK43BUmJJBu6P8T74tc6/fKpUJUlFEaZsupgIIRRRDW9ejB8uGagUmwOnA2gdcvbw==}
-    peerDependencies:
-      react: '>=16.8.0'
-    dependencies:
-      '@googlemaps/js-api-loader': 1.15.2
-      react: 18.2.0
     dev: false
 
   /@humanwhocodes/config-array@0.11.8:
@@ -173,10 +149,6 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
-
-  /@mapbox/point-geometry@0.1.0:
-    resolution: {integrity: sha512-6j56HdLTwWGO0fJPlrZtdU/B13q8Uwmo18Ck2GnGgN9PCFyKTZ3UbXeEdRFh18i9XQ92eH2VdtpJHpBD3aripQ==}
-    dev: false
 
   /@next/env@13.4.3:
     resolution: {integrity: sha512-pa1ErjyFensznttAk3EIv77vFbfSYT6cLzVRK5jx4uiRuCQo+m2wCFAREaHKIy63dlgvOyMlzh6R8Inu8H3KrQ==}
@@ -309,12 +281,6 @@ packages:
       tslib: 2.5.2
     dev: false
 
-  /@types/google-map-react@2.1.7:
-    resolution: {integrity: sha512-7pquMUU20kVwbfEV91iAWXjApSkqoODkfUwTSmJpU9Tgd+ecX+MrQnplCqrSqKrPF1VjfvyWnDEicdoSd0G5qA==}
-    dependencies:
-      '@types/react': 18.0.26
-    dev: true
-
   /@types/json5@0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: false
@@ -325,6 +291,7 @@ packages:
 
   /@types/prop-types@15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
+    dev: false
 
   /@types/react-dom@18.0.9:
     resolution: {integrity: sha512-qnVvHxASt/H7i+XG1U1xMiY5t+IHcPGUK7TDMDzom08xa7e86eCeKOiLZezwCKVxJn6NEiiy2ekgX8aQssjIKg==}
@@ -338,9 +305,11 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
       csstype: 3.1.2
+    dev: false
 
   /@types/scheduler@0.16.3:
     resolution: {integrity: sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==}
+    dev: false
 
   /@typescript-eslint/parser@5.59.6(eslint@8.29.0)(typescript@4.9.3):
     resolution: {integrity: sha512-7pCa6al03Pv1yf/dUg/s1pXz/yGMUBAw5EeWqNTFiSueKvRNonze3hma3lhdsOrQcaOXhbk5gKu2Fludiho9VA==}
@@ -698,6 +667,7 @@ packages:
 
   /csstype@3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
+    dev: false
 
   /damerau-levenshtein@1.0.8:
     resolution: {integrity: sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==}
@@ -1206,10 +1176,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /eventemitter3@4.0.7:
-    resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
-    dev: false
-
   /execa@5.1.1:
     resolution: {integrity: sha512-8uSpZZocAZRBAPIEINJj3Lo9HyGitllczc27Eh5YYojjMFMn8yHMDMaUHE2Jqfq05D/wucwI4JGURyXt1vchyg==}
     engines: {node: '>=10'}
@@ -1462,21 +1428,6 @@ packages:
       ignore: 5.2.4
       merge2: 1.4.1
       slash: 4.0.0
-    dev: false
-
-  /google-map-react@2.2.1(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-Dg8aexf5rNSmywj0XKQ5m4RNzVcWwKEM2BGDj5aPChD0um8ZRjB5Upcb/yg/i0oG1aES29asQ5+6BHVgrK5xGA==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      react: ^16.0.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      '@googlemaps/js-api-loader': 1.15.2
-      '@mapbox/point-geometry': 0.1.0
-      eventemitter3: 4.0.7
-      prop-types: 15.8.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /gopd@1.0.1:

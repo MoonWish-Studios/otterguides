@@ -7,7 +7,7 @@ export function Hightlight({
   children,
 }: {
   detailed?: boolean
-  title: string
+  title?: string
   children: React.ReactNode
 }) {
   return (

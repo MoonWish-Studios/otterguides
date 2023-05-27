@@ -6,11 +6,10 @@ import GuideHighlights, {
   Hightlight,
 } from "../../components/GuideHighlights"
 import Reviews from "../../components/Reviews"
-import GoogleMapReact from "google-map-react"
-import { Wrapper } from "@googlemaps/react-wrapper"
-import { GuideCard, GuideProps } from "../../[city]/page"
-import { usePathname, useParams } from "next/navigation"
-import { GUIDES } from "../../../GUIDES"
+
+import { useParams } from "next/navigation"
+import { GUIDES } from "../../components/GUIDES"
+import { GuideCard, GuideProps } from "../../components/GuideCard"
 export default function Page() {
   const [guide, setGuide] = useState<GuideProps | null>(null)
   const params = useParams()
@@ -21,67 +20,71 @@ export default function Page() {
     if (theGuide !== undefined) setGuide(theGuide)
     console.log(theGuide)
   }, [params.id])
-  const pathname = usePathname()
-  if (guide === null)
-    return (
-      <div className="w-fit h-full m-auto my-auto ">
-        <iframe
-          src="https://giphy.com/embed/Qrca6tBIdqXYXhnB4v"
-          width="480"
-          height="480"
-          allowFullScreen
-          className="touch-none"
-        ></iframe>
-      </div>
-    )
-  else {
-    return (
-      <div className=" md:mx-auto max-w-7xl mx-6 flex flex-col items-center justify-center">
-        <div className="flex flex-col md:grid md:grid-cols-[1fr_auto] md:grid-rows-[500px_auto_auto] justify-center lg:gap-x-8 gap-4 items-center mt-20 transition md:items-start">
-          {/* Image Carasoul + plan + guide */}
-          {/* <div className="flex-col w-3/5 "> */}
-          <div className="shrink-0  w-full relative h-96 md:h-full rounded-lg bg-neutral-200">
-            <Image
-              src={guide.image}
-              fill
-              alt="Guide Trip Images"
-              className="object-cover  rounded-lg outline-cyan-300 outline outline-1 outline-offset-2"
-            />
+  return (
+    <div>
+      {guide === null ? (
+        <div className="w-fit h-full m-auto my-auto ">
+          <iframe
+            src="https://giphy.com/embed/Qrca6tBIdqXYXhnB4v"
+            width="480"
+            height="480"
+            allowFullScreen
+            className="touch-none"
+          ></iframe>
+        </div>
+      ) : (
+        <div className=" md:mx-auto max-w-7xl mx-6 flex flex-col items-center justify-center">
+          <div className="flex flex-col md:grid md:grid-cols-[1fr_auto] md:grid-rows-[500px_auto_auto] justify-center lg:gap-x-8 gap-4 items-center mt-20 transition md:items-start">
+            {/* Image Carasoul + plan + guide */}
+            {/* <div className="flex-col w-3/5 "> */}
+            <div className="shrink-0  w-full relative h-96 md:h-full rounded-lg bg-neutral-200">
+              <Image
+                src={guide.image}
+                fill
+                alt="Guide Trip Images"
+                className="object-cover  rounded-lg outline-cyan-300 outline outline-1 outline-offset-2"
+              />
+            </div>
+            <GuideReserveCard guide={guide} />
+            <div>
+              <h1 className="text-xl font-medium mb-2">The Plan!</h1>
+              <ul className="list-outside tracking-wide list-disc relative border-l border-cyan-200 ml-2 ">
+                {guide.itinerary.map(
+                  (
+                    itinerary: { title: string; description: string },
+                    i: number
+                  ) => (
+                    <Hightlight detailed key={i} title={itinerary.title}>
+                      {itinerary.description}
+                    </Hightlight>
+                  )
+                )}
+              </ul>
+            </div>
+            {/* </div> */}
+            <div className="col-span-2">
+              <h1 className="text-xl font-medium">Meet your guide</h1>
+              <GuideCard guide={guide} hideHighlights />
+            </div>
           </div>
-          <GuideReserveCard {...guide} />
-          <div>
-            <h1 className="text-xl font-medium mb-2">The Plan!</h1>
-            <ul className="list-outside tracking-wide list-disc relative border-l border-cyan-200 ml-2 ">
-              {guide.itinerary.map((itinerary, i) => (
-                <Hightlight detailed key={i} title={itinerary.title}>
-                  {itinerary.description}
-                </Hightlight>
-              ))}
-            </ul>
-          </div>
-          {/* </div> */}
-          <div className="col-span-2">
-            <h1 className="text-xl font-medium">Meet your guide</h1>
-            <GuideCard guide={guide} hideHighlights />
+          <div className="flex flex-col w-fit">
+            <h1 className="text-xl font-medium mt-20">
+              Explore other guides in your area
+            </h1>
+            {GUIDES.map(
+              (g, i) =>
+                guide.id != g.id && (
+                  <GuideCard key={i} guide={g} hideHighlights={false} />
+                )
+            )}
           </div>
         </div>
-        <div className="flex flex-col w-fit">
-          <h1 className="text-xl font-medium mt-20">
-            Explore other guides in your area
-          </h1>
-          {GUIDES.map(
-            (g, i) =>
-              guide.id != g.id && (
-                <GuideCard key={i} guide={g} hideHighlights={false} />
-              )
-          )}
-        </div>
-      </div>
-    )
-  }
+      )}
+    </div>
+  )
 }
 
-export function GuideReserveCard(guide: GuideProps) {
+function GuideReserveCard({ guide }: { guide: GuideProps }): JSX.Element {
   const [guestCount, setGuestCount] = useState(1)
 
   const handleGuestChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

@@ -1,5 +1,4 @@
-import { GuideProps } from "./app/[city]/page"
-
+import { GuideProps } from "./GuideCard"
 export const GUIDES: GuideProps[] = [
   {
     name: "Luna Santiago",
