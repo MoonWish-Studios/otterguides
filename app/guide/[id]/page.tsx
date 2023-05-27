@@ -13,15 +13,15 @@ import { usePathname, useParams } from "next/navigation"
 import { GUIDES } from "../../../GUIDES"
 export default function Page() {
   const [guide, setGuide] = useState<GuideProps | null>(null)
+  const params = useParams()
   useEffect(() => {
     const theGuide: GuideProps | undefined = GUIDES.find(
       (g) => g.id == params.id
     )
     if (theGuide !== undefined) setGuide(theGuide)
     console.log(theGuide)
-  })
+  }, [params.id])
   const pathname = usePathname()
-  const params = useParams()
   if (guide === null)
     return (
       <div className="w-fit h-full m-auto my-auto ">
@@ -36,7 +36,7 @@ export default function Page() {
     )
   else {
     return (
-      <div className="max-w-7xl mx-6 flex flex-col items-center justify-center">
+      <div className=" md:mx-auto max-w-7xl mx-6 flex flex-col items-center justify-center">
         <div className="flex flex-col md:grid md:grid-cols-[1fr_auto] md:grid-rows-[500px_auto_auto] justify-center lg:gap-x-8 gap-4 items-center mt-20 transition md:items-start">
           {/* Image Carasoul + plan + guide */}
           {/* <div className="flex-col w-3/5 "> */}
@@ -195,7 +195,9 @@ function GuideSimpleProfile(guide: GuideProps) {
       />
       <div>
         <h1 className="font-regular text-md text-neutral-900">{guide.name}</h1>
-        <p className=" text-neutral-400 font-light">I'm excited to meet you!</p>
+        <p className=" text-neutral-400 font-light">
+          I&apos;m excited to meet you!
+        </p>
       </div>
     </div>
   )
