@@ -38,11 +38,14 @@ export default function Page() {
           </Link>
         </div>
       ) : (
-        <div className=" md:mx-auto max-w-7xl mx-6 flex flex-col items-center justify-center">
-          <div className="flex flex-col md:grid md:grid-cols-[1fr_auto] md:grid-rows-[500px_auto_auto] justify-center lg:gap-x-8 gap-4 items-center mt-20 transition md:items-start">
+        <div className=" xl:mx-auto max-w-7xl mx-6 flex flex-col items-center justify-center mt-10 ">
+          <h1 className="text-2xl my-3 font-semibold w-full">
+            {guide.name} Guide :)
+          </h1>
+          <div className="flex flex-col lg:grid lg:grid-cols-[1fr_auto] lg:grid-rows-[500px_auto_auto] justify-center lg:gap-x-8 gap-4 items-center transition lg:items-start">
             {/* Image Carasoul + plan + guide */}
             {/* <div className="flex-col w-3/5 "> */}
-            <div className="shrink-0  w-full relative h-96 md:h-full rounded-lg bg-neutral-200">
+            <div className="shrink-0  w-full relative h-96 lg:h-full rounded-lg bg-neutral-200">
               <Image
                 src={guide.image}
                 fill
@@ -96,7 +99,7 @@ function GuideReserveCard({ guide }: { guide: GuideProps }): JSX.Element {
     setGuestCount(parseInt(e.target.value))
   }
   return (
-    <div className="mx-4 w-full  md:max-w-sm">
+    <div className="mx-4 w-full  lg:max-w-sm">
       {/* Reserve Card */}
       <div className="flex-col relative">
         <div className=" p-3 sm:p-5 border z-10 relative border-neutral-300 rounded-xl bg-white">

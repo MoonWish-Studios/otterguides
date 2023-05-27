@@ -68,7 +68,7 @@ export function GuideButton({
     <div className="flex flex-col justify-end ">
       <Link
         href={`/guide/${href}`}
-        className="flex-none text-center rounded-xl bg-cyan-300 md:max-w-xl px-6 py-2.5 text-sm md:text-base"
+        className="flex-none text-center rounded-xl bg-cyan-300 lg:max-w-xl px-6 py-2.5 text-sm md:text-base"
       >
         {label || "View Guide"}
       </Link>
