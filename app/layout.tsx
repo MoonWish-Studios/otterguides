@@ -17,6 +17,7 @@ export default function RootLayout({
       <head />
       <body className={`${readex_pro.className}`}>
         {/* <Navbar /> */}
+
         <Navbar />
         {children}
       </body>
