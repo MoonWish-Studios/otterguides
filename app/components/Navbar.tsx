@@ -15,6 +15,7 @@ export default function Navbar({ className }: { className?: string }) {
   const isHomePage = pathname === "/"
 
   const logoColor = isHomePage ? "text-white" : "text-cyan-400"
+  const menuPath = isHomePage ? "menu-white.svg" : "menu-black.svg"
   // set menu state
   const [open, setOpen] = useState(false)
 
@@ -44,7 +45,7 @@ export default function Navbar({ className }: { className?: string }) {
             />
           ) : (
             <Image
-              src="/assets/icons/menu-white.svg"
+              src={`/assets/icons/${menuPath}`}
               alt="Menu Icon"
               width="24"
               height="24"

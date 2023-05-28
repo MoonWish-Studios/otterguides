@@ -39,7 +39,7 @@ export default function Page() {
         </div>
       ) : (
         <div className=" xl:mx-auto max-w-7xl mx-6 flex flex-col items-center justify-center mt-10 ">
-          <div className="w-full flex justify-center underline-offset-2 underline mb-3">
+          <div className="w-10/12 text-center flex justify-center underline-offset-2 underline mb-3">
             We are currently still in beta so hosts you see are just examples of
             what it might look like!
           </div>

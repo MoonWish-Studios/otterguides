@@ -187,15 +187,15 @@ function SmallGuideCard({
           {/* Guide Info */}
           <div className="shrink-0">
             {/* Name */}
-            <h1 className="font-medium text-base">Kamari Ababuo</h1>
+            <h1 className="font-medium text-base">{guide.name}</h1>
             {/* Employment */}
-            <p className="text-sm text-neutral-400">Soccer Coach</p>
+            <p className="text-sm text-neutral-400">{guide.employment}</p>
             <Reviews rating={guide.rating} reviewCount={guide.reviews} />
           </div>
         </div>
         {/* Language */}
         <TextLeftIcon alt="globe-alt" icon="/assets/icons/globe-alt.svg">
-          Speaks English, Afrikaans, Swahiili
+          Speaks {guide.languages.join(", ")}
         </TextLeftIcon>
         {/* Bio */}
         <p className="mt-4 font-light md:text-base text-sm">

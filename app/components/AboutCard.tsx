@@ -8,7 +8,7 @@ export default function AboutCard() {
         <div className="ImageContainer lg:block hidden relative w-[325px] flex-none  ">
           <Image
             className=" object-cover scale-110 rounded-lg "
-            src={"/assets/founders.png"}
+            src={"/assets/founders2.png"}
             fill
             alt={"founders"}
           />
