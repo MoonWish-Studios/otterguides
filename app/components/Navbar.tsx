@@ -13,18 +13,20 @@ export default function Navbar({ className }: { className?: string }) {
   const transparent = reverse ? "absolute top-0" : "relative"
 
   const isHomePage = pathname === "/"
+
+  const logoColor = isHomePage ? "text-white" : "text-cyan-400"
+  const menuPath = isHomePage ? "menu-white.svg" : "menu-black.svg"
   // set menu state
   const [open, setOpen] = useState(false)
 
-  useEffect(() => {
-    console.log(open)
-  })
   return (
-    <div className={`${transparent} lg:mx-auto  w-full z-[999]  ${className} `}>
+    <div className={`${transparent} lg:mx-auto  w-full z-[999] ${className} `}>
       <div className="flex items-center justify-between py-1 ">
         {/* Logo */}
         <h1 className={pacifico.className}>
-          <p className="text-[2.5rem] text-cyan-400  ml-10 mt-3">Otter</p>
+          <Link href={"/"}>
+            <p className={`text-[2.5rem] ${logoColor}  ml-10 mt-3`}>Otter</p>
+          </Link>
         </h1>
         {/* Hamburger Menu */}
         <div
@@ -43,7 +45,7 @@ export default function Navbar({ className }: { className?: string }) {
             />
           ) : (
             <Image
-              src="/assets/icons/menu-white.svg"
+              src={`/assets/icons/${menuPath}`}
               alt="Menu Icon"
               width="24"
               height="24"
@@ -59,19 +61,8 @@ export default function Navbar({ className }: { className?: string }) {
           } absolute left-1/2 top-36 transform md:hidden -translate-x-1/2  backdrop-filter backdrop-blur-[14px] border-2 border-cyan-100 bg-opacity-10 
            -translate-y-16  flex flex-col gap-2 z-50 p-4 w-[80%] text-neutral-50 font-bold rounded-lg`}
         >
-          <NavLink href="/products/water" text="Tyent" currentPath={pathname} />
-          <NavLink
-            href="/products/cookware"
-            text="Cookware"
-            currentPath={pathname}
-          />
-          <NavLink href="/gallery" text="Gallery" currentPath={pathname} />
-          <NavLink
-            href="/appointment"
-            text="Appointment"
-            currentPath={pathname}
-          />
-          <NavLink href="/contact" text="Contact" currentPath={pathname} />
+          <NavLink href="/guide" text="Be a guide" currentPath={pathname} />
+          <NavLink href="/contact" text="Contact us" currentPath={pathname} />
         </nav>
         {/* Desktop Navbar */}
         <nav
