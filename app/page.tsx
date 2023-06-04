@@ -5,14 +5,21 @@ import CardScroll from "./components/CardScroll"
 import HowSection from "./components/HowSection"
 import WhySection from "./components/WhySection"
 import AboutCard from "./components/AboutCard"
+import { cookies } from "next/headers"
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 
 // download headwind extension to autosort classnames so we see the same thing
-export default function Home() {
+export default async function Home() {
+  const supabase = createServerComponentClient({ cookies })
+
+  const { data: posts } = await supabase.from("posts").select("*")
+
   return (
     <div className="">
       <Landing />
-      {/* <HowSection /> */}
-
+      <div className="">
+        <pre>{JSON.stringify(posts, null, 2)}</pre>
+      </div>
       <section className="w-full mb-10">
         <CardScroll />
         <WhySection />
