@@ -7,6 +7,7 @@ import WhySection from "./components/WhySection"
 import AboutCard from "./components/AboutCard"
 import { cookies } from "next/headers"
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
+import SignOut from "./components/SignOut"
 
 // download headwind extension to autosort classnames so we see the same thing
 export default async function Home() {

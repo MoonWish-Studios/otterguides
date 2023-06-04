@@ -85,7 +85,7 @@ const SignIn = () => {
             </Form>
           )}
         </Formik>
-        {errorMsg && <div className="text-red-600">{errorMsg}</div>}
+        {errorMsg && <div className="text-red-600 text-center">{errorMsg}</div>}
         <button
           className="text-cyan-400 w-full"
           type="button"
