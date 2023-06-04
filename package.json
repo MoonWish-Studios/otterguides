@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fullcalendar/core": "^6.1.8",
+    "@fullcalendar/daygrid": "^6.1.8",
+    "@fullcalendar/interaction": "^6.1.8",
+    "@fullcalendar/react": "^6.1.8",
     "@supabase/auth-helpers-nextjs": "^0.7.1",
     "@supabase/supabase-js": "^2.24.0",
     "@types/node": "18.11.11",
