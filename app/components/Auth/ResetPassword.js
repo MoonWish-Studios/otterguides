@@ -33,43 +33,47 @@ const ResetPassword = () => {
   }
 
   return (
-    <div className="card">
-      <h2 className="w-full text-center">Forgot Password</h2>
-      <Formik
-        initialValues={{
-          email: "",
-        }}
-        validationSchema={ResetPasswordSchema}
-        onSubmit={resetPassword}
-      >
-        {({ errors, touched }) => (
-          <Form className="column w-full">
-            <label htmlFor="email">Email</label>
-            <Field
-              className={cn("input", errors.email && "bg-red-50")}
-              id="email"
-              name="email"
-              placeholder="jane@acme.com"
-              type="email"
-            />
-            {errors.email && touched.email ? (
-              <div className="text-red-600">{errors.email}</div>
-            ) : null}
-            <button className="button-inverse w-full" type="submit">
-              Send Instructions
-            </button>
-          </Form>
+    <div className="auth-container">
+      <div className="auth-card">
+        <h2 className="auth-title">Forgot Password</h2>
+        <Formik
+          initialValues={{
+            email: "",
+          }}
+          validationSchema={ResetPasswordSchema}
+          onSubmit={resetPassword}
+        >
+          {({ errors, touched }) => (
+            <Form className="auth-form">
+              <label htmlFor="email">Email</label>
+              <Field
+                className={cn("auth-input", errors.email && "bg-red-50")}
+                id="email"
+                name="email"
+                placeholder="jane@acme.com"
+                type="email"
+              />
+              {errors.email && touched.email ? (
+                <div className="text-red-600">{errors.email}</div>
+              ) : null}
+              <button className="auth-button" type="submit">
+                Send Instructions
+              </button>
+            </Form>
+          )}
+        </Formik>
+        {errorMsg && <div className="text-center text-red-600">{errorMsg}</div>}
+        {successMsg && (
+          <div className="text-center text-black">{successMsg}</div>
         )}
-      </Formik>
-      {errorMsg && <div className="text-center text-red-600">{errorMsg}</div>}
-      {successMsg && <div className="text-center text-black">{successMsg}</div>}
-      <button
-        className="link"
-        type="button"
-        onClick={() => setView(VIEWS.SIGN_IN)}
-      >
-        Remember your password? Sign In.
-      </button>
+        <button
+          className="text-cyan-400 w-full"
+          type="button"
+          onClick={() => setView(VIEWS.SIGN_IN)}
+        >
+          Remember your password? Sign In.
+        </button>
+      </div>
     </div>
   )
 }

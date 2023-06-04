@@ -29,11 +29,9 @@ const SignIn = () => {
   }
 
   return (
-    <div className=" w-full flex justify-center">
-      <div className=" w-[20rem] items-center gap-8 rounded-2xl bg-white py-8 px-4 shadow-md sm:w-[24rem] sm:px-10">
-        <h2 className="w-full text-center text-3xl font-semibold my-6">
-          Sign In
-        </h2>
+    <div className="auth-container">
+      <div className="auth-card">
+        <h2 className="auth-title">Sign In</h2>
         <Formik
           initialValues={{
             email: "",
@@ -43,16 +41,16 @@ const SignIn = () => {
           onSubmit={signIn}
         >
           {({ errors, touched }) => (
-            <Form className="flex flex-col items-start justify-center gap-4">
+            <Form className="auth-form">
               <label htmlFor="email">Email</label>
               <Field
                 className={cn(
-                  "custom-focus w-full rounded-xl border border-slate-300 focus:shadow-none py-2 px-[0.5rem] ",
+                  "auth-input ",
                   errors.email && touched.email && "bg-red-50"
                 )}
                 id="email"
                 name="email"
-                placeholder="jane@acme.com"
+                placeholder="example@gmail.com"
                 type="email"
               />
               {errors.email && touched.email ? (
@@ -62,7 +60,7 @@ const SignIn = () => {
               <label htmlFor="email">Password</label>
               <Field
                 className={cn(
-                  "custom-focus w-full rounded-xl border border-slate-300 focus:shadow-none py-2 px-[0.5rem]",
+                  "auth-input",
                   errors.password && touched.password && "bg-red-50"
                 )}
                 id="password"
@@ -81,10 +79,7 @@ const SignIn = () => {
                 Forgot your password?
               </button>
 
-              <button
-                className="w-full mb-5 rounded-full py-2 bg-cyan-400 text-white hover:bg-white hover:text-cyan-400 hover:border-2 hover:border-cyan-400"
-                type="submit"
-              >
+              <button className="auth-button" type="submit">
                 Submit
               </button>
             </Form>
