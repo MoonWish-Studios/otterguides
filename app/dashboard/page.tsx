@@ -12,6 +12,7 @@ import {
   FormikValues,
 } from "formik"
 import * as Yup from "yup"
+import Calendar from "../components/Calendar"
 const Profile = {
   firstName: "John",
   lastName: "Doe",
@@ -99,7 +100,7 @@ export default function Page() {
         >
           {({ errors, touched }) => (
             <Form className="">
-              <Field name="firstName" className="border-2 rounded-lg " />
+              <Field name="firstName" className="border-2 rounded-lg  " />
               {errors.firstName && touched.firstName ? (
                 <div>{errors.firstName}</div>
               ) : null}
@@ -117,17 +118,9 @@ export default function Page() {
         </Formik>
       </div>
       {/* Profile */}
-      <div> </div>
-      <FullCalendar
-        initialView="dayGridMonth"
-        plugins={[daygrid, interactionPlugin]}
-        // initialDate={date}
-        // viewClassNames="bg-cyan-300"
-        nowIndicatorClassNames="text-red-500"
-        dayCellClassNames="text-cyan-300"
-        slotLaneClassNames="text-cyan-900"
-        dateClick={(e) => console.log(e)}
-      />
+      <div>
+        <Calendar />
+      </div>
     </div>
   )
 }
