@@ -32,11 +32,12 @@ const useScheduleStore = create((set, get) => ({
     console.log("FAKE SAVING TO DATABASE", get().selectedDatesToOverride)
   },
   getStartHour: (date) => {
-    return get().schedule.filter(({ day, startHour }) => {
+    return get().schedule.find(({ day, startHour }) => {
       if (day === date.day()) {
+        console.log(startHour, "GET START HOUR")
         return startHour
       }
-    })
+    }).startHour
   },
   checkOverrideDate: (date) => {
     return get().selectedDatesToOverride.find((d) => {
@@ -79,13 +80,15 @@ const useScheduleStore = create((set, get) => ({
     }))
   },
 
-  setTimeOfDay: (selectedDay, time) => {
-    return schedule.find((day) => {
-      if (day.day === selectedDay) {
-        setSchedule([...schedule, { ...day, startHour: time }])
-        return true
-      }
-    })
+  setTimeOfDay: (selectedDay, hour) => {
+    set((state) => ({
+      schedule: state.schedule.map((day) => {
+        if (day.day === selectedDay) {
+          day.startHour = parseInt(hour)
+        }
+        return day
+      }),
+    }))
   },
 }))
 export default useScheduleStore

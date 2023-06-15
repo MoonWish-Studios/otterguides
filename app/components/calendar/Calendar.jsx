@@ -57,7 +57,12 @@ const ScheduleOption = ({ day, startHour, available, now, scheduler }) => {
       </label>
 
       {available ? (
-        <SelectTime now={now}>{startHour}</SelectTime>
+        <SelectTime
+          setTimeOfDay={scheduler.setTimeOfDay}
+          now={now}
+          day={day}
+          startHour={startHour}
+        ></SelectTime>
       ) : (
         <span className="text-gray-400">Unavailable</span>
       )}
@@ -65,7 +70,7 @@ const ScheduleOption = ({ day, startHour, available, now, scheduler }) => {
   )
 }
 
-const SelectTime = ({ children, now }) => {
+const SelectTime = ({ day, children, now, setTimeOfDay, startHour }) => {
   const time = [
     0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
     22, 23,
@@ -73,10 +78,13 @@ const SelectTime = ({ children, now }) => {
 
   return (
     <select
-      defaultValue={children}
+      defaultValue={startHour}
+      onChange={(e) => {
+        setTimeOfDay(day, e.target.value)
+      }}
       className="border px-2 py-1 rounded-lg text-gray-700"
     >
-      <option value={children}>{now.hour(children).format("h:00 A")}</option>
+      <option value={startHour}>{now.hour(startHour).format("h:00 A")}</option>
       {time.map((hour) => (
         <option value={hour}>{now.hour(hour).format("h:00 A")}</option>
       ))}
@@ -164,89 +172,6 @@ const CalendarDays = () => {
     </div>
     // {arrayOfDays.map((day) => (<div>{}</div>)}
   )
-}
-
-const useGuideSchedule = () => {
-  // const [schedule, setSchedule] = useState(DEFAULT_SCHEDULE)
-  // const [overrideDate, seOverrideDate] = useState(OVERIDE_SCHEDULE)
-  const [schedule, setSchedule, overrideDate, setOverrideDate] =
-    useScheduleStore((s) => [
-      s.schedule,
-      s.setSchedule,
-      s.overrideDate,
-      s.setOverrideDate,
-    ])
-  const setDayUnavailable = (selectedDay) => {
-    return schedule.find((day) => {
-      if (day.date === selectedDay) {
-        setSchedule([...schedule, { ...day, available: false }])
-        return true
-      }
-    })
-  }
-
-  const setDayAvailable = (selectedDay) => {
-    return schedule.find((day) => {
-      if (day.date === selectedDay) {
-        setSchedule([...schedule, { ...day, available: true }])
-        return true
-      }
-    })
-  }
-
-  const setTimeOfDay = (selectedDay, time) => {
-    return schedule.find((day) => {
-      if (day.date === selectedDay) {
-        setSchedule([...schedule, { ...day, startHour: time }])
-        return true
-      }
-    })
-  }
-
-  // /**
-  //  *
-  //  * @param date = dayjs object
-  //  * @returns
-  //  */
-  // const getDayAvailability = (date) => {
-  //   // by checking first if it is an override date, we can avoid checking the schedule
-  //   const isOverrideDate = overrideDate.find((d) => {
-  //     if (d.date() === date.date()) {
-  //       console.log(date.startOf("hour"), "OVERRIDE DATE")
-  //       return true
-  //     }
-  //   })
-
-  //   // date is 6/14 ---- 2
-  //   // overrid every wednesday, which is 2.
-  //   // console.log(isOverrideDate)
-  //   if (isOverrideDate) return isOverrideDate.available
-  //   // then we check schedule to see if the day is available if it matches by date label (e.g. monday)
-  //   const isNotAvailable = schedule.find(({ day, available }) => {
-  //     if (!available && day === date.day()) {
-  //       return true
-  //     }
-  //   })
-  //   return isNotAvailable ? false : true
-  // }
-  const addOverrideDate = (date) => {
-    if (overrideDate.find((date) => date === date)) return "date already exists"
-    setOverrideDate([...overrideDate, date])
-  }
-
-  const removeOverrideDate = (date) => {
-    setOverrideDate(overrideDate.filter((date) => date !== date))
-  }
-
-  return {
-    schedule,
-    setDayAvailable,
-    setDayUnavailable,
-    setTimeOfDay,
-    addOverrideDate,
-    removeOverrideDate,
-    // getDayAvailability,
-  }
 }
 
 export default Calendar

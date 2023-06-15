@@ -22,8 +22,15 @@ const Grid = ({ date, scheduler, now, selectMonth, handleClick }) => {
 
   // disable if after guide time today
   const isAlreadyAfterGuideTimeToday =
-    date.isToday() && date.isAfter(getStartHour(date), "hour")
+    date.isToday() && now.hour() > getStartHour(date)
 
+  date.isToday() &&
+    console.log(
+      getStartHour(date),
+      now.hour(),
+      now.isAfter(getStartHour(date), "hour"),
+      isAlreadyAfterGuideTimeToday
+    )
   // style if selected to become a unavailable date
   const isAnPotentialUnavailableDate = checkOverrideDate(date)
     ? "enabled:border-gray-200 text-gray-300 enabled:hover:bg-gray-400"
