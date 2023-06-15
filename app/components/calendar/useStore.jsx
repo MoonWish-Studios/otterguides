@@ -67,5 +67,25 @@ const useScheduleStore = create((set, get) => ({
       }
     })
   },
+
+  toggleDayAvailability: (selectedDay, available) => {
+    set((state) => ({
+      schedule: state.schedule.map((day) => {
+        if (day.day === selectedDay) {
+          day.available = available
+        }
+        return day
+      }),
+    }))
+  },
+
+  setTimeOfDay: (selectedDay, time) => {
+    return schedule.find((day) => {
+      if (day.day === selectedDay) {
+        setSchedule([...schedule, { ...day, startHour: time }])
+        return true
+      }
+    })
+  },
 }))
 export default useScheduleStore

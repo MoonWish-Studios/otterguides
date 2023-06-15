@@ -4,6 +4,7 @@ import { shallow } from "zustand/shallow"
 import useCalendar, { useCalendarStore } from "./useCalendar"
 import Grid from "./Grid"
 import ChevronButton from "./ChevronButton"
+import dayjs from "dayjs"
 const Calendar = () => {
   // const calendar = useCalendar()
   // const scheduler = useGuideSchedule()
@@ -18,14 +19,68 @@ const Calendar = () => {
 export const Scheduler = ({ supabase_schedule, supabase_overrides }) => {
   const scheduler = useScheduleStore()
 
+  const now = useCalendarStore((state) => state.now)
   useEffect(() => {
     if (supabase_schedule) scheduler.setSchedule(supabase_schedule)
   }, [supabase_schedule, supabase_overrides])
   return (
-    <div className="mx-auto w-fit my-40">
+    <div className="mx-auto w-fit flex my-40 ">
+      <div className="flex flex-col gap-y-3 border-r pr-4 mr-4">
+        {scheduler.schedule.map((option) => (
+          <ScheduleOption {...option} now={now} scheduler={scheduler} />
+        ))}
+        <button
+          className="flex-none text-center rounded-xl bg-cyan-300 lg:max-w-xl px-6 py-2.5 text-sm md:text-base hover:bg-cyan-200 transition "
+          onClick={scheduler.saveOverridesToDatabase}
+        >
+          Save{" "}
+        </button>
+      </div>
       <Calendar />
-      <button onClick={scheduler.saveOverridesToDatabase}>Save</button>
     </div>
+  )
+}
+
+const ScheduleOption = ({ day, startHour, available, now, scheduler }) => {
+  return (
+    <div className="flex gap-4 h-8 w-48 items-center justify-between">
+      <label className="flex gap-2 text-gray-900">
+        <input
+          type="checkbox"
+          className=""
+          checked={available}
+          onChange={(e) =>
+            scheduler.toggleDayAvailability(day, e.target.checked)
+          }
+        />
+        {now.day(day).format("ddd")}
+      </label>
+
+      {available ? (
+        <SelectTime now={now}>{startHour}</SelectTime>
+      ) : (
+        <span className="text-gray-400">Unavailable</span>
+      )}
+    </div>
+  )
+}
+
+const SelectTime = ({ children, now }) => {
+  const time = [
+    0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+    22, 23,
+  ]
+
+  return (
+    <select
+      defaultValue={children}
+      className="border px-2 py-1 rounded-lg text-gray-700"
+    >
+      <option value={children}>{now.hour(children).format("h:00 A")}</option>
+      {time.map((hour) => (
+        <option value={hour}>{now.hour(hour).format("h:00 A")}</option>
+      ))}
+    </select>
   )
 }
 
