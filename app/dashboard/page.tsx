@@ -12,7 +12,11 @@ import {
   FormikValues,
 } from "formik"
 import * as Yup from "yup"
-import Calendar from "../components/calendar/Calendar"
+import Calendar, { Scheduler } from "../components/calendar/Calendar"
+import {
+  DEFAULT_SCHEDULE,
+  OVERIDE_SCHEDULE,
+} from "../components/calendar/constants"
 const Profile = {
   firstName: "John",
   lastName: "Doe",
@@ -119,7 +123,12 @@ export default function Page() {
       </div>
       {/* Profile */}
       <div>
-        <Calendar />
+        {/* <Calendar />
+         */}
+        <Scheduler
+          supabase_schedule={DEFAULT_SCHEDULE}
+          supabase_overrides={OVERIDE_SCHEDULE}
+        />
       </div>
     </div>
   )

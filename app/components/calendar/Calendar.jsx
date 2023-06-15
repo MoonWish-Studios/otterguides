@@ -4,16 +4,27 @@ import { shallow } from "zustand/shallow"
 import useCalendar, { useCalendarStore } from "./useCalendar"
 import Grid from "./Grid"
 import ChevronButton from "./ChevronButton"
-const Calendar = ({ inDashboard }) => {
+const Calendar = () => {
   // const calendar = useCalendar()
   // const scheduler = useGuideSchedule()
-  const addUnavailableDates = useScheduleStore((s) => s.addUnavailableDates)
-  console.log(scheduler)
   return (
-    <div className="w-fit rounded-sm p-2 mx-auto my-96">
+    <div className="w-fit rounded-sm p-2">
       <CalendarHeader />
       <CalendarDays />
-      <button onClick={addUnavailableDates}></button>
+    </div>
+  )
+}
+
+export const Scheduler = ({ supabase_schedule, supabase_overrides }) => {
+  const scheduler = useScheduleStore()
+
+  useEffect(() => {
+    if (supabase_schedule) scheduler.setSchedule(supabase_schedule)
+  }, [supabase_schedule, supabase_overrides])
+  return (
+    <div className="mx-auto w-fit my-40">
+      <Calendar />
+      <button onClick={scheduler.saveOverridesToDatabase}>Save</button>
     </div>
   )
 }
@@ -51,19 +62,32 @@ const CalendarLabels = ({ currentMonth }) => {
   ))
 }
 const CalendarDays = () => {
-  const [arrayOfDays, setAllDays, selectedMonth] = useCalendarStore(
-    (s) => [s.arrayOfDays, s.setAllDays, s.selectedMonth],
+  const [arrayOfDays, setAllDays, selectedMonth, now] = useCalendarStore(
+    (s) => [s.arrayOfDays, s.setAllDays, s.selectedMonth, s.now],
     shallow
   )
-  const selectedDatesToOverride = useScheduleStore(
-    (s) => s.selectedDatesToOverride
-  )
+  const scheduler = useScheduleStore()
   useEffect(() => {
     setAllDays()
   }, [selectedMonth])
-  useEffect(() => {
-    console.log(selectedDatesToOverride)
-  }, [selectedDatesToOverride])
+
+  // Handle state if selected to become a unavailable date
+  // adds/remove from the array of selected dates to override
+  // this function is the difference between dashboard/guide page
+  const handleOverrideClick = (date) => {
+    if (scheduler.checkOverrideDate(date)) {
+      scheduler.removeOverrideDate(date)
+    } else {
+      scheduler.addOverrideDate(date)
+    }
+  }
+
+  /* todo */
+  const handleUserClick = (date) => {
+    console.log(date)
+    // store this date as a potential date to reserver
+    // save this date into database
+  }
   return (
     <div className="grid  grid-cols-7 gap-2 ">
       <CalendarLabels />
@@ -71,7 +95,14 @@ const CalendarDays = () => {
         <Grid
           date={date}
           key={date.valueOf()}
-          currentMonth={selectedMonth}
+          scheduler={scheduler}
+          selectMonth={selectedMonth}
+          now={now}
+          handleClick={
+            scheduler.isSchedulingEnabled
+              ? handleOverrideClick
+              : handleUserClick
+          }
           // available={getDayAvailability(date)}
         />
       ))}

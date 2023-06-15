@@ -27,6 +27,7 @@ export const useCalendarStore = create((set, get) => ({
       allDates.push(iteratingDate)
       iteratingDate = iteratingDate.add(1, "day")
     }
+    console.log(allDates)
     set((s) => ({ arrayOfDays: allDates }))
   },
 }))

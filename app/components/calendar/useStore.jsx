@@ -3,10 +3,14 @@ import dayjs from "dayjs"
 import { DEFAULT_SCHEDULE, OVERIDE_SCHEDULE } from "./constants"
 const useScheduleStore = create((set, get) => ({
   schedule: DEFAULT_SCHEDULE,
-  overrideDate: [],
-  selectedDatesToOverride: [],
-  unavailableDates: OVERIDE_SCHEDULE,
+  selectedDatesToOverride: OVERIDE_SCHEDULE,
+  // unavailableDates: OVERIDE_SCHEDULE,
+  isSchedulingEnabled: true,
   setSchedule: (schedule) => set({ schedule }),
+  setOverrideDate: (overrideDate) => set({ overrideDate }),
+  // setUnavailableDates: (unavailableDates) => {
+  //   set({ unavailableDates })
+  // },
 
   addOverrideDate: (override) =>
     set((s) => ({
@@ -14,11 +18,18 @@ const useScheduleStore = create((set, get) => ({
     })),
   removeOverrideDate: (date) => {
     set((s) => {
-      const filteredDates = s.selectedDatesToOverride.filter(
-        (d) => d.date() !== date.date()
-      )
-      return { overrideDate: filteredDates }
+      const filteredDates = s.selectedDatesToOverride.filter((d) => {
+        if (d.date() !== date.date()) {
+          return d
+        } else if (d.month() !== date.month()) {
+          return d
+        }
+      })
+      return { selectedDatesToOverride: filteredDates }
     })
+  },
+  saveOverridesToDatabase: () => {
+    console.log("FAKE SAVING TO DATABASE", get().selectedDatesToOverride)
   },
   getStartHour: (date) => {
     return get().schedule.filter(({ day, startHour }) => {
@@ -38,50 +49,22 @@ const useScheduleStore = create((set, get) => ({
   },
   getDayAvailability: (date) => {
     // by checking first if it is an override date, we can avoid checking the schedule
-    const unavailableDates = get().unavailableDates
 
-    const isUnavailableDates = unavailableDates.find((d) => {
-      if (d.date() === date.date()) {
-        return true
-      }
-    })
+    if (get().checkOverrideDate(date)) {
+      return false
+    } else if (get().checkIfScheduleSaysUnavailable(date)) {
+      return false
+    } else {
+      return true
+    }
+  },
 
-    // date is 6/14 ---- 2
-    // overrid every wednesday, which is 2.
-    // console.log(isUnavailableDates)
-    if (isUnavailableDates) return isUnavailableDates.available
-    // then we check schedule to see if the day is available if it matches by date label (e.g. monday)
-    const isNotAvailable = get().schedule.find(({ day, available }) => {
+  // function used for getDayAvailability
+  checkIfScheduleSaysUnavailable: (date) => {
+    return get().schedule.find(({ day, available }) => {
       if (!available && day === date.day()) {
         return true
       }
-    })
-    return isNotAvailable ? false : true
-  },
-
-  addUnavailableDate: (date) => {
-    // if(date.isBefore())
-    if (get().unavailableDates.find((d) => d.date() === date.date()))
-      return "date already exists"
-    set((state) => ({
-      unavailableDates: [...state.unavailableDates, date],
-    }))
-  },
-  addUnavailableDates: () => {
-    // if(date.isBefore())
-    // if (get().unavailableDates.find((d) => d.date() === date.date()))
-    // return "date already exists"
-    set((state) => ({
-      unavailableDates: [...state.unavailableDates, state.overrideDate],
-    }))
-  },
-
-  removeUnavailableDate: (date) => {
-    const filteredDates = get().unavailableDates.filter(
-      (d) => d.date() !== date.date()
-    )
-    set({
-      unavailableDates: filteredDates,
     })
   },
 }))
