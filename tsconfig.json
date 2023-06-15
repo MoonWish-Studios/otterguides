@@ -25,7 +25,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/components/Calendar.jsx"
+    "app/components/calendar/Calendar.jsx"
   ],
   "exclude": ["node_modules"]
 }

@@ -12,7 +12,7 @@ import {
   FormikValues,
 } from "formik"
 import * as Yup from "yup"
-import Calendar from "../components/Calendar"
+import Calendar from "../components/calendar/Calendar"
 const Profile = {
   firstName: "John",
   lastName: "Doe",
