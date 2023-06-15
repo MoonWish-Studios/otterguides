@@ -11,6 +11,7 @@ dayjs.extend(isTodayPlugin)
 const Calendar = () => {
   const calendar = useCalendar()
   const scheduler = useGuideSchedule()
+  const addUnavailableDates = useScheduleStore((s) => s.addUnavailableDates)
   console.log(scheduler)
   return (
     <div className="w-fit rounded-sm p-2 mx-auto my-96">
@@ -23,9 +24,11 @@ const Calendar = () => {
       <CalendarDays
         arrayOfDays={calendar.arrayOfDays}
         scheduler={scheduler}
+        now={calendar.now}
         currentMonth={calendar.currentMonth}
         getAllDays={calendar.getAllDays}
       />
+      <button onClick={addUnavailableDates}></button>
     </div>
   )
 }
@@ -75,6 +78,7 @@ const useCalendar = () => {
   }
   return {
     currentMonth,
+    now,
     arrayOfDays,
     nextMonth,
     prevMonth,
@@ -114,10 +118,7 @@ const CalendarLabels = ({ currentMonth }) => {
 }
 const CalendarDays = ({ arrayOfDays, currentMonth, scheduler }) => {
   const dateFormat = "dddd"
-  const getDayAvailability = useScheduleStore(
-    (state) => state.getDayAvailability
-  )
-  console.log(arrayOfDays)
+
   return (
     <div className="grid  grid-cols-7 gap-2 ">
       <CalendarLabels currentMonth={currentMonth} />
@@ -125,23 +126,60 @@ const CalendarDays = ({ arrayOfDays, currentMonth, scheduler }) => {
         <Grid
           date={date}
           currentMonth={currentMonth}
-          available={getDayAvailability(date)}
+          // available={getDayAvailability(date)}
         />
       ))}
     </div>
     // {arrayOfDays.map((day) => (<div>{}</div>)}
   )
 }
-const Grid = ({ date, currentMonth, available }) => {
+const Grid = ({ date, currentMonth, now }) => {
+  const [
+    getDayAvailability,
+    addOverrideDate,
+    removeOverrideDate,
+    getStartHour,
+    checkOverrideDate,
+  ] = useScheduleStore((s) => [
+    s.getDayAvailability,
+    s.addOverrideDate,
+    s.removeOverrideDate,
+    s.getStartHour,
+    s.checkOverrideDate,
+  ])
+  const available = getDayAvailability(date)
   const isNotThisMonth = currentMonth.month() !== date.month()
-  const isCurrentDate = date.isToday()
-    ? "enabled:text-cyan-600 enabled:border-cyan-600"
+  const isBeforeToday = date.isBefore(now)
+  const isAnPotentialUnavailableDate = checkOverrideDate(date)
+    ? "enabled:border-none text-gray-300 enabled:hover:bg-cyan-200 enabled:hover:border-cyan-200"
     : ""
 
+  const isAlreadyAfterGuideTimeToday =
+    date.isToday() && date.isAfter(getStartHour(date), "hour")
+  const isCurrentDate =
+    date.isToday() && !checkOverrideDate(date)
+      ? "enabled:text-cyan-600 enabled:border-cyan-600"
+      : ""
+
+  const [active, setActive] = useState(false)
+
+  useEffect(() => {
+    if (active) {
+      addOverrideDate(date)
+    } else {
+      removeOverrideDate(date)
+    }
+  }, [active])
   return (
     <button
-      className={` ${isCurrentDate}  w-9 h-9 text-center text-cyan-400 enabled:border-cyan-400 enabled:border rounded-full enabled:hover:bg-cyan-400 enabled:hover:text-white transition disabled:text-gray-300  `}
-      disabled={isNotThisMonth || !available}
+      className={`   w-9 h-9 text-center text-cyan-400 disabled:line-through enabled:border-cyan-400 enabled:border rounded-full enabled:hover:bg-cyan-400 enabled:hover:text-white transition disabled:text-gray-300 ${isCurrentDate} ${isAnPotentialUnavailableDate}  `}
+      disabled={
+        isNotThisMonth ||
+        !available ||
+        isBeforeToday ||
+        isAlreadyAfterGuideTimeToday
+      }
+      onClick={() => setActive(!active)}
     >
       {date.date()}
     </button>
@@ -300,29 +338,101 @@ export default Calendar
 
 const useScheduleStore = create((set, get) => ({
   schedule: DEFAULT_SCHEDULE,
-  overrideDate: OVERIDE_SCHEDULE,
+  overrideDate: [],
+  unavailableDates: OVERIDE_SCHEDULE,
   setSchedule: (schedule) => set({ schedule }),
-  setOverrideDate: (overrides) => set({ overrides }),
+
+  addOverrideDate: (override) =>
+    set((s) => ({
+      overrideDate: [...s.overrideDate, override],
+    })),
+  removeOverrideDate: (date) => {
+    const filteredDates = get().overrideDate.filter(
+      (d) => d.date() !== date.date()
+    )
+    set({
+      overrideDate: filteredDates,
+    })
+  },
+  getStartHour: (date) => {
+    return get().schedule.filter(({ day, startHour }) => {
+      if (day === date.day()) {
+        return startHour
+      }
+    })
+  },
+  checkOverrideDate: (date) => {
+    return get().overrideDate.find((d) => {
+      console.log(d)
+      if (d.date() === date.date() && d.month() === date.month()) {
+        // console.log(d.toString(), date.toString())
+        // console.log("RETURNED TRUE")
+        return true
+      }
+    })
+  },
   getDayAvailability: (date) => {
     // by checking first if it is an override date, we can avoid checking the schedule
-    const overrideDate = get().overrideDate
-    const isOverrideDate = overrideDate.find((d) => {
+    const unavailableDates = get().unavailableDates
+
+    const isUnavailableDates = unavailableDates.find((d) => {
       if (d.date() === date.date()) {
-        console.log(date.startOf("hour"), "OVERRIDE DATE")
         return true
       }
     })
 
     // date is 6/14 ---- 2
     // overrid every wednesday, which is 2.
-    // console.log(isOverrideDate)
-    if (isOverrideDate) return isOverrideDate.available
+    // console.log(isUnavailableDates)
+    if (isUnavailableDates) return isUnavailableDates.available
     // then we check schedule to see if the day is available if it matches by date label (e.g. monday)
-    const isNotAvailable = schedule.find(({ day, available }) => {
+    const isNotAvailable = get().schedule.find(({ day, available }) => {
       if (!available && day === date.day()) {
         return true
       }
     })
     return isNotAvailable ? false : true
+  },
+  // addOverrideDate: (date) => {
+  //   // if(date.isBefore())
+  //   if (get().overrideDate.find((d) => d.date() === date.date()))
+  //     return "date already exists"
+  //   set((state) => ({
+  //     overrideDate: [...state.overrideDate, date],
+  //   }))
+  // },
+
+  // removeOverrideDate: (date) => {
+  //   const filteredDates = get().overrideDate.filter(
+  //     (d) => d.date() !== date.date()
+  //   )
+  //   set({
+  //     overrideDate: filteredDates,
+  //   })
+  // },
+  addUnavailableDate: (date) => {
+    // if(date.isBefore())
+    if (get().unavailableDates.find((d) => d.date() === date.date()))
+      return "date already exists"
+    set((state) => ({
+      unavailableDates: [...state.unavailableDates, date],
+    }))
+  },
+  addUnavailableDates: () => {
+    // if(date.isBefore())
+    // if (get().unavailableDates.find((d) => d.date() === date.date()))
+    // return "date already exists"
+    set((state) => ({
+      unavailableDates: [...state.unavailableDates, state.overrideDate],
+    }))
+  },
+
+  removeUnavailableDate: (date) => {
+    const filteredDates = get().unavailableDates.filter(
+      (d) => d.date() !== date.date()
+    )
+    set({
+      unavailableDates: filteredDates,
+    })
   },
 }))
