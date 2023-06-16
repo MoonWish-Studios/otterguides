@@ -71,7 +71,6 @@ export default function Page() {
       <div className="bg-sky-200 h-96 w-full"></div>
       <div className="max-w-xl border p-8 mx-auto rounded-lg flex flex-col gap-3">
         <Formik
-          validationSchema={ProfileSchema}
           initialValues={profile}
           onSubmit={(values, actions) => {
             console.log({ values, actions })

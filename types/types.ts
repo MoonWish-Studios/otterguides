@@ -25,7 +25,7 @@ export interface InputTypes {
   type: any
   name: string
   statusCompleted: boolean
-  value?: string
+  value: string
   handleChange: any
 }
 

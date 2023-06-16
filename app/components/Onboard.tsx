@@ -6,6 +6,7 @@ import SignOut from "../components/SignOut"
 import { useAuth } from "../components/AuthProvider"
 import { InputBox, LargeInputBox } from "../components/InputTypes"
 import { useEffect, useState } from "react"
+import { v4 as uuidv4 } from "uuid"
 import { UserDataTypes } from "../../types/types"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
@@ -47,7 +48,36 @@ export default function Onboard(user: any) {
       [e.target.name]: e.target.value,
     }))
   }
-  console.log(userData)
+
+  const [images, setImages] = useState<any>([])
+
+  async function uploadImage(e: any) {
+    let file = e.target.files[0]
+
+    const { data, error } = await supabase.storage
+      .from("guides")
+      .upload(user.user.id + "/" + uuidv4(), file)
+
+    if (data) {
+      getImages()
+    } else {
+      console.log(error)
+    }
+  }
+
+  async function getImages() {
+    const { data, error } = await supabase.storage
+      .from("images")
+      .list("", { limit: 100 })
+
+    if (data !== null) {
+      setImages(data)
+      console.log("hi")
+    } else {
+      alert("Error loading images")
+      console.log(error)
+    }
+  }
 
   const handleSubmit = async () => {
     try {
@@ -307,6 +337,36 @@ export default function Onboard(user: any) {
         </div>
       ) : questNum == 6 ? (
         <div className="w-full flex flex-col items-center">
+          <h1 className="text-3xl">Pictures!</h1>
+          <p className="w-4/12 text-center font-light mt-3">
+            This will let travelers put a face on your profile. The picture is
+            soley for the purpose of showing our travelers that you are a real
+            person and someone they can trust!
+          </p>
+          <div className="mx-20 w-4/12 mt-8 flex flex-col space-y-3">
+            <h1 className="text-xl font-[400]">Upload a photo of yourself!</h1>
+            <input
+              type="file"
+              accept="image/png, image/jpeg, image/jpg"
+              onChange={(e) => uploadImage(e)}
+            />
+            <div className="w-full pt-10 flex justify-between">
+              <button onClick={backward}>
+                <Image
+                  src={"/chev-left.png"}
+                  height={30}
+                  width={30}
+                  onClick={() => backward}
+                  alt={"Back"}
+                />
+              </button>
+
+              <PlainButton action={forward}>Continue</PlainButton>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="w-full flex flex-col items-center">
           <h1 className="text-3xl">Last Step!</h1>
           <p className="w-4/12 text-center font-light mt-3">
             We want to hear about why you decided to be a guide for Otter
@@ -342,8 +402,6 @@ export default function Onboard(user: any) {
             </div>
           </div>
         </div>
-      ) : (
-        <></>
       )}
 
       <div className="inputs  flex flex-col">

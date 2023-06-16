@@ -7,7 +7,11 @@ const nextConfig = {
   //   ignoreBuildErrors: true,
   // },
   images: {
-    domains: ["images.unsplash.com", "loremflickr.com"],
+    domains: [
+      "images.unsplash.com",
+      "loremflickr.com",
+      "lzzlsndqxlmpjoonmjfd.supabase.co",
+    ],
   },
   reactStrictMode: true,
 }
