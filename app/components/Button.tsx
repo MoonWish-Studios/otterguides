@@ -15,9 +15,32 @@ export default function Button({
       href={`${href}`}
       className={`inline-block text-center max-w-fit bg-white
         font-normal text-sm transition ease-in-out duration-100
-      box-content hover:scale-105 rounded-2xl px-[45px] my-0 py-[10px] ${className} `}
+      box-content hover:scale-105 tracking-wider rounded-xl px-[45px] my-0 py-[10px] ${className} `}
     >
       {children}
     </Link>
+  )
+}
+
+export function PlainButton({
+  href,
+  children,
+  className,
+  action,
+}: {
+  href?: string
+  children: React.ReactElement<any> | string
+  className?: string
+  action?: any
+}) {
+  return (
+    <button
+      className={`"mt-8 mr-3 bg-black text-white inline-block text-center max-w-fit
+        font-normal text-sm transition ease-in-out duration-100
+      box-content hover:scale-105 tracking-wider rounded-xl px-[45px] my-0 py-[10px] ${className} `}
+      onClick={action}
+    >
+      {children}
+    </button>
   )
 }

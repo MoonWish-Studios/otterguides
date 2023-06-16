@@ -18,10 +18,22 @@ const SignUp = () => {
   const [errorMsg, setErrorMsg] = useState(null)
   const [successMsg, setSuccessMsg] = useState(null)
 
+  const getURL = () => {
+    let url = "http://localhost:3000/dashboard2"
+    // Make sure to include `https://` when not localhost.
+    // url = url.includes("http") ? url : `https://${url}`
+    // // Make sure to including trailing `/`.
+    // url = url.charAt(url.length - 1) === "/" ? url : `${url}/`
+    return url
+  }
+
   async function signUp(formData) {
     const { error } = await supabase.auth.signUp({
       email: formData.email,
       password: formData.password,
+      options: {
+        emailRedirectTo: getURL(),
+      },
     })
 
     if (error) {
