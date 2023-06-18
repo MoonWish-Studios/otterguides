@@ -9,20 +9,25 @@ const Calendar = () => {
   // const calendar = useCalendar()
   // const scheduler = useGuideSchedule()
   return (
-    <div className="w-fit rounded-sm p-2">
+    <div className="w-fit rounded-lg p-2 bg-white border shadow-lg  ">
       <CalendarHeader />
       <CalendarDays />
     </div>
   )
 }
 
-export const Scheduler = ({ supabase_schedule, supabase_overrides }) => {
+export const Scheduler = ({ user }) => {
   const scheduler = useScheduleStore()
 
-  const now = useCalendarStore((state) => state.now)
+  const setCalendarMode = useCalendarStore((state) => state.setCalendarMode)
   useEffect(() => {
-    if (supabase_schedule) scheduler.setSchedule(supabase_schedule)
-  }, [supabase_schedule, supabase_overrides])
+    setCalendarMode("scheduler")
+
+    console.log("set calendar mode to scheduler")
+  }, [])
+
+  const now = useCalendarStore((state) => state.now)
+
   return (
     <div className="mx-auto w-fit flex my-40 ">
       <div className="flex flex-col gap-y-3 border-r pr-4 mr-4">
@@ -31,7 +36,7 @@ export const Scheduler = ({ supabase_schedule, supabase_overrides }) => {
         ))}
         <button
           className="flex-none text-center rounded-xl bg-cyan-300 lg:max-w-xl px-6 py-2.5 text-sm md:text-base hover:bg-cyan-200 transition "
-          onClick={scheduler.saveOverridesToDatabase}
+          onClick={() => scheduler.saveOverridesToDatabase(user)}
         >
           Save{" "}
         </button>
@@ -125,8 +130,24 @@ const CalendarLabels = ({ currentMonth }) => {
   ))
 }
 const CalendarDays = () => {
-  const [arrayOfDays, setAllDays, selectedMonth, now] = useCalendarStore(
-    (s) => [s.arrayOfDays, s.setAllDays, s.selectedMonth, s.now],
+  const [
+    arrayOfDays,
+    setAllDays,
+    selectedMonth,
+    now,
+    calendarMode,
+    userSelectedDate,
+    setUserSelectedDate,
+  ] = useCalendarStore(
+    (s) => [
+      s.arrayOfDays,
+      s.setAllDays,
+      s.selectedMonth,
+      s.now,
+      s.calendarMode,
+      s.userSelectedDate,
+      s.setUserSelectedDate,
+    ],
     shallow
   )
   const scheduler = useScheduleStore()
@@ -148,6 +169,8 @@ const CalendarDays = () => {
   /* todo */
   const handleUserClick = (date) => {
     console.log(date)
+    console.log(calendarMode)
+    setUserSelectedDate(date)
     // store this date as a potential date to reserver
     // save this date into database
   }
@@ -159,12 +182,11 @@ const CalendarDays = () => {
           date={date}
           key={date.valueOf()}
           scheduler={scheduler}
+          userSelectedDate={userSelectedDate}
           selectMonth={selectedMonth}
           now={now}
           handleClick={
-            scheduler.isSchedulingEnabled
-              ? handleOverrideClick
-              : handleUserClick
+            calendarMode === "scheduler" ? handleOverrideClick : handleUserClick
           }
           // available={getDayAvailability(date)}
         />

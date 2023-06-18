@@ -12,7 +12,11 @@ dayjs.extend(isTodayPlugin)
 export const useCalendarStore = create((set, get) => ({
   now: dayjs(),
   selectedMonth: dayjs(),
+  calendarMode: "user",
   arrayOfDays: [],
+  userSelectedDate: dayjs(),
+  setUserSelectedDate: (date) => set((state) => ({ userSelectedDate: date })),
+  setCalendarMode: (mode) => set((state) => ({ calendarMode: mode })),
   nextMonth: () =>
     set((state) => ({ selectedMonth: state.selectedMonth.add(1, "month") })),
   prevMonth: () =>

@@ -17,6 +17,7 @@ export default async function Page() {
   if (!user) {
     redirect("/login2")
   }
+
   const { data: userInfo } = await supabase
     .from("users")
     .select("*")

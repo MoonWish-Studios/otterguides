@@ -1,13 +1,16 @@
 import { create } from "zustand"
 import dayjs from "dayjs"
+import supabase from "../../supabase-browser"
+
 import { DEFAULT_SCHEDULE, OVERIDE_SCHEDULE } from "./constants"
 const useScheduleStore = create((set, get) => ({
   schedule: DEFAULT_SCHEDULE,
-  selectedDatesToOverride: OVERIDE_SCHEDULE,
+  selectedDatesToOverride: [],
   // unavailableDates: OVERIDE_SCHEDULE,
   isSchedulingEnabled: true,
   setSchedule: (schedule) => set({ schedule }),
-  setOverrideDate: (overrideDate) => set({ overrideDate }),
+  setOverrideDate: (overrideDate) =>
+    set({ selectedDatesToOverride: overrideDate }),
   // setUnavailableDates: (unavailableDates) => {
   //   set({ unavailableDates })
   // },
@@ -28,13 +31,26 @@ const useScheduleStore = create((set, get) => ({
       return { selectedDatesToOverride: filteredDates }
     })
   },
-  saveOverridesToDatabase: () => {
+  saveOverridesToDatabase: async (user) => {
     console.log("FAKE SAVING TO DATABASE", get().selectedDatesToOverride)
+
+    const dateOjects = get().selectedDatesToOverride.map((date) =>
+      date.toDate()
+    )
+
+    const { error } = await supabase
+      .from("schedule")
+      .update({
+        override_dates: JSON.stringify(dateOjects),
+        schedule: JSON.stringify(get().schedule),
+      })
+      .eq("user_id", user.user.id)
+
+    console.log(error, user.user)
   },
   getStartHour: (date) => {
     return get().schedule.find(({ day, startHour }) => {
       if (day === date.day()) {
-        console.log(startHour, "GET START HOUR")
         return startHour
       }
     }).startHour

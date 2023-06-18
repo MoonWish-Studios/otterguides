@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react"
 import { InputBox } from "./InputTypes"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import supabase from "../supabase-browser"
 import FullCalendar from "@fullcalendar/react"
 import Button from "./Button"
@@ -24,6 +24,8 @@ import {
   DEFAULT_SCHEDULE,
   OVERIDE_SCHEDULE,
 } from "../components/calendar/constants"
+import useScheduleStore from "./calendar/useStore"
+import dayjs from "dayjs"
 
 const USER_DATA_INITIAL_STATE = {
   user_id: "",
@@ -45,6 +47,46 @@ export function Dashboard2(user: any) {
   const router = useRouter()
   const [images, setImages] = useState<any>([])
 
+  const [setSchedule, setOverrideDate] = useScheduleStore((s) => [
+    s.setSchedule,
+    s.setOverrideDate,
+  ])
+  useEffect(() => {
+    if (!onboarded) return
+
+    const fetchSchedule = async () => {
+      const { data: userSchedule } = await supabase
+        .from("schedule")
+        .select("*")
+        .eq("user_id", user.user.id)
+        .single()
+
+      console.log(userSchedule)
+      if (!userSchedule) {
+        console.log(JSON.stringify(DEFAULT_SCHEDULE), user.user.id)
+        const { data, error } = await supabase.from("schedule").insert([
+          {
+            schedule: JSON.stringify(DEFAULT_SCHEDULE),
+            user_id: user.user.id,
+            override_dates: "",
+          },
+        ])
+        console.log(error, data)
+      } else {
+        setSchedule(JSON.parse(userSchedule.schedule))
+
+        if (userSchedule.override_dates) {
+          const toDayJs = JSON.parse(userSchedule.override_dates).map((date) =>
+            dayjs(date)
+          )
+          console.log(userSchedule)
+          console.log(toDayJs)
+          setOverrideDate(toDayJs)
+        }
+      }
+    }
+    fetchSchedule()
+  }, [onboarded])
   useEffect(() => {
     const fetchData = async () => {
       const { data: userInfo } = await supabase
@@ -56,9 +98,11 @@ export function Dashboard2(user: any) {
         setOnboarded(false)
       } else {
         setUserData(userInfo)
+
         setOnboarded(true)
       }
     }
+
     const getImages = async () => {
       const { data, error } = await supabase.storage
         .from("guides")
@@ -169,10 +213,7 @@ export function Dashboard2(user: any) {
           <div>
             {/* <Calendar />
              */}
-            <Scheduler
-              supabase_schedule={DEFAULT_SCHEDULE}
-              supabase_overrides={OVERIDE_SCHEDULE}
-            />
+            <Scheduler user={user} />
           </div>
         </div>
       )}

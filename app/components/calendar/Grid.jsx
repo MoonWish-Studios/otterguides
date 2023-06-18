@@ -2,7 +2,14 @@ import { useEffect, useState } from "react"
 import useScheduleStore from "./useStore"
 import { useCalendarStore } from "./useCalendar"
 
-const Grid = ({ date, scheduler, now, selectMonth, handleClick }) => {
+const Grid = ({
+  date,
+  scheduler,
+  now,
+  selectMonth,
+  handleClick,
+  userSelectedDate,
+}) => {
   const {
     getDayAvailability,
     getStartHour,
@@ -16,7 +23,9 @@ const Grid = ({ date, scheduler, now, selectMonth, handleClick }) => {
   const IsAnOverrideDate = checkOverrideDate(date)
   // disable if not this month
   const isNotThisMonth = selectMonth.month() !== date.month()
-
+  const isSelectedDate = userSelectedDate.isSame(date)
+    ? "enabled:bg-cyan-400 enabled:text-white enabled:border-cyan-500"
+    : ""
   // disable if before today
   const isBeforeToday = date.isBefore(now, "day")
 
@@ -24,13 +33,6 @@ const Grid = ({ date, scheduler, now, selectMonth, handleClick }) => {
   const isAlreadyAfterGuideTimeToday =
     date.isToday() && now.hour() > getStartHour(date)
 
-  date.isToday() &&
-    console.log(
-      getStartHour(date),
-      now.hour(),
-      now.isAfter(getStartHour(date), "hour"),
-      isAlreadyAfterGuideTimeToday
-    )
   // style if selected to become a unavailable date
   const isAnPotentialUnavailableDate = checkOverrideDate(date)
     ? "enabled:border-gray-200 text-gray-300 enabled:hover:bg-gray-400"
@@ -44,7 +46,7 @@ const Grid = ({ date, scheduler, now, selectMonth, handleClick }) => {
 
   return (
     <button
-      className={`   w-9 h-9 text-center text-cyan-400 disabled:line-through enabled:border-cyan-400 enabled:border rounded-full enabled:hover:bg-cyan-400 enabled:hover:text-white transition duration-75 enabled:active:scale-125 disabled:text-gray-300 enabled:active:border-cyan-200 enabled:active:bg-cyan-100 ${isCurrentDate} ${isAnPotentialUnavailableDate}  `}
+      className={`   w-9 h-9 text-center text-cyan-400 disabled:line-through enabled:border-cyan-400 enabled:border rounded-full enabled:hover:bg-cyan-400 enabled:hover:text-white transition duration-75 enabled:active:scale-125 disabled:text-gray-300 enabled:active:border-cyan-200 enabled:active:bg-cyan-100 ${isCurrentDate} ${isAnPotentialUnavailableDate} ${isSelectedDate}  `}
       disabled={
         isNotThisMonth ||
         scheduleNotAvailable ||

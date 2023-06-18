@@ -11,6 +11,11 @@ import Reviews from "../../components/Reviews"
 import { useParams } from "next/navigation"
 import { GUIDES } from "../../components/GUIDES"
 import { GuideCard, GuideProps } from "../../components/GuideCard"
+import Calendar from "../../components/calendar/Calendar"
+import { useCalendarStore } from "../../components/calendar/useCalendar"
+import useScheduleStore from "../../components/calendar/useStore"
+import dayjs from "dayjs"
+import supabase from "../../supabase-browser"
 export default function Page() {
   const [guide, setGuide] = useState<GuideProps | null>(null)
   const params = useParams()
@@ -21,6 +26,53 @@ export default function Page() {
     if (theGuide !== undefined) setGuide(theGuide)
     console.log(theGuide)
   }, [params.id])
+
+  const [calendarMode, setCalendarMode] = useCalendarStore((state) => [
+    state.calendarMode,
+    state.setScheduleMode,
+  ])
+
+  const [setSchedule, setOverrideDate] = useScheduleStore((s) => [
+    s.setSchedule,
+    s.setOverrideDate,
+  ])
+  useEffect(() => {
+    if (calendarMode !== "user") {
+      setCalendarMode("user")
+    }
+  }, [])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data: userData } = await supabase
+        .from("users")
+        .select("*")
+        .eq("id", params.id)
+        .single()
+
+      if (!userData) return
+      const { data: userSchedule } = await supabase
+        .from("schedule")
+        .select("*")
+        .eq("user_id", userData.user_id)
+        .single()
+
+      if (userSchedule) {
+        setSchedule(JSON.parse(userSchedule.schedule))
+
+        if (userSchedule.override_dates) {
+          const toDayJs = JSON.parse(userSchedule.override_dates).map((date) =>
+            dayjs(date)
+          )
+          console.log(userSchedule)
+          console.log(toDayJs)
+          setOverrideDate(toDayJs)
+        }
+      }
+    }
+
+    fetchData()
+  }, [])
   return (
     <div>
       {guide === null ? (
@@ -98,12 +150,20 @@ export default function Page() {
 
 function GuideReserveCard({ guide }: { guide: GuideProps }): JSX.Element {
   const [guestCount, setGuestCount] = useState(1)
+  const [openDate, setOpenDate] = useState<boolean>(false)
+  const userSelectedDate = useCalendarStore((s) => s.userSelectedDate)
 
   const handleGuestChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setGuestCount(parseInt(e.target.value))
   }
+
   return (
-    <div className="mx-4 w-full  lg:max-w-sm">
+    <div
+      className="mx-4 w-full  lg:max-w-sm"
+      onClick={() => {
+        openDate && setOpenDate(false)
+      }}
+    >
       {/* Reserve Card */}
       <div className="flex-col relative">
         <div className=" p-3 sm:p-5 border z-10 relative border-neutral-300 rounded-xl bg-white">
@@ -118,10 +178,16 @@ function GuideReserveCard({ guide }: { guide: GuideProps }): JSX.Element {
               <label className="font-medium p-3 text-sm">
                 Date
                 <input
-                  className="block  text-base outline-none font-light w-full text-neutral-900 "
-                  defaultValue={getDate()}
-                  type="date"
+                  className="block text-left text-base outline-none font-light w-full text-neutral-900 "
+                  value={userSelectedDate.format("MM/DD/YYYY")}
+                  onClick={() => setOpenDate(!openDate)}
+                  type="button"
                 />
+                {openDate && (
+                  <div className="absolute right-0">
+                    <Calendar />
+                  </div>
+                )}
               </label>
               <label className="font-medium  text-sm p-3 border-l ">
                 Guests

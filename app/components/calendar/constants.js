@@ -14,7 +14,7 @@ export const DEFAULT_SCHEDULE = [
   {
     day: 2,
     startHour: 9,
-    available: false,
+    available: true,
   },
   {
     day: 3,
