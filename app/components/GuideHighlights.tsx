@@ -1,5 +1,6 @@
 import { nanoid } from "nanoid"
 import Link from "next/link"
+import React from "react"
 
 export function Hightlight({
   detailed = false,

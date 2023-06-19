@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid"
+import React from "react"
 
 export default function GuideInterests({ interests }: { interests: string[] }) {
   return (

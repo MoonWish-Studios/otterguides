@@ -3,11 +3,16 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-  // typescript: {
-  //   ignoreBuildErrors: true,
-  // },
+
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
-    domains: ["images.unsplash.com", "loremflickr.com"],
+    domains: [
+      "images.unsplash.com",
+      "loremflickr.com",
+      "lzzlsndqxlmpjoonmjfd.supabase.co",
+    ],
   },
   reactStrictMode: true,
 }

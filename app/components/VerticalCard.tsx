@@ -1,5 +1,7 @@
 import Image from "next/image"
 import Button from "./Button"
+import React from "react"
+
 export default function VerticalCard({
   city,
   numGuides,
@@ -51,7 +53,7 @@ export default function VerticalCard({
             alt={"avatars"}
           />
 
-          <Button href="/guide" className="mb-8 text-black">
+          <Button href="/guide" className="mb-8 text-black bg-white">
             Explore
           </Button>
         </div>

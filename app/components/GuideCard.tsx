@@ -7,6 +7,7 @@ import GuideInterests from "./Interests"
 import Reviews from "./Reviews"
 import TextLeftIcon from "./TextLeftIcon"
 import useWindowSize from "./useScreensize"
+import React from "react"
 
 export interface GuideProps {
   name: string
