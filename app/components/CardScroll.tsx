@@ -1,4 +1,5 @@
 import VerticalCard from "./VerticalCard"
+import React from "react"
 
 export default function CardScroll() {
   return (

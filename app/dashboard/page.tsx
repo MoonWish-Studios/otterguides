@@ -5,6 +5,7 @@ import SignOut from "../components/SignOut"
 import { useAuth } from "../components/AuthProvider"
 import Auth from "../components/Auth"
 import { Dashboard2 } from "../components/Dashboard2"
+import React from "react"
 
 import { useEffect } from "react"
 

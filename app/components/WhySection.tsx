@@ -1,4 +1,5 @@
 import WhyBlock from "./WhyBlock"
+import React from "react"
 
 export default function WhySection() {
   return (

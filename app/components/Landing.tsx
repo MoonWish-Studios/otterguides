@@ -8,6 +8,7 @@ import { useEffect } from "react"
 import { useAnimation } from "framer-motion"
 import { Pacifico } from "next/font/google"
 const pacifico = Pacifico({ weight: "400", subsets: ["latin"] })
+import React from "react"
 
 // download headwind extension to autosort classnames so we see the same thing
 export default function Landing() {

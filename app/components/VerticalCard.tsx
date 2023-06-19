@@ -1,5 +1,7 @@
 import Image from "next/image"
 import Button from "./Button"
+import React from "react"
+
 export default function VerticalCard({
   city,
   numGuides,

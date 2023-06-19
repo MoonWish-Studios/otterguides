@@ -1,4 +1,5 @@
 import HowBlock from "./HowBlock"
+import React from "react"
 
 export default function HowSection() {
   return (

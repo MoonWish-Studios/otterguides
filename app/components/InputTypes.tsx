@@ -1,4 +1,5 @@
 import { InputTypes, SelectTypes } from "../../types/types"
+import React from "react"
 
 export function InputBox({
   label,

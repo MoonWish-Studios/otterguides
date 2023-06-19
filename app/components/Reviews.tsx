@@ -1,5 +1,7 @@
 "use client"
 import { VT323 } from "next/font/google"
+import React from "react"
+
 const vt323 = VT323({ weight: "400", subsets: ["latin"] })
 
 export default function Reviews({
