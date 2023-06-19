@@ -76,8 +76,8 @@ export function Dashboard2(user: any) {
         setSchedule(JSON.parse(userSchedule.schedule))
 
         if (userSchedule.override_dates) {
-          const toDayJs = JSON.parse(userSchedule.override_dates).map((date) =>
-            dayjs(date)
+          const toDayJs = JSON.parse(userSchedule.override_dates).map(
+            (date: any) => dayjs(date)
           )
           console.log(userSchedule)
           console.log(toDayJs)
