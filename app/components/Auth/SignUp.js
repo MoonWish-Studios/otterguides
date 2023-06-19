@@ -19,7 +19,7 @@ const SignUp = () => {
   const [successMsg, setSuccessMsg] = useState(null)
 
   const getURL = () => {
-    let url = "http://localhost:3000/dashboard2"
+    let url = "https://www.otterguides.com/dashboard"
     // Make sure to include `https://` when not localhost.
     // url = url.includes("http") ? url : `https://${url}`
     // // Make sure to including trailing `/`.

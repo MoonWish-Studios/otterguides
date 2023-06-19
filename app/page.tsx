@@ -15,7 +15,7 @@ export default function Page() {
 }
 
 function Home() {
-  const supabase = createServerComponentClient({ cookies })
+  // const supabase = createServerComponentClient({ cookies })
 
   // const { data: posts } = await supabase.from("posts").select("*")
 

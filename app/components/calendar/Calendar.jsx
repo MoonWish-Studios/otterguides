@@ -31,8 +31,13 @@ export const Scheduler = ({ user }) => {
   return (
     <div className="mx-auto w-fit flex my-40 ">
       <div className="flex flex-col gap-y-3 border-r pr-4 mr-4">
-        {scheduler.schedule.map((option) => (
-          <ScheduleOption {...option} now={now} scheduler={scheduler} />
+        {scheduler.schedule.map((option, id) => (
+          <ScheduleOption
+            key={id}
+            {...option}
+            now={now}
+            scheduler={scheduler}
+          />
         ))}
         <button
           className="flex-none text-center rounded-xl bg-cyan-300 lg:max-w-xl px-6 py-2.5 text-sm md:text-base hover:bg-cyan-200 transition "
@@ -91,7 +96,9 @@ const SelectTime = ({ day, children, now, setTimeOfDay, startHour }) => {
     >
       <option value={startHour}>{now.hour(startHour).format("h:00 A")}</option>
       {time.map((hour) => (
-        <option value={hour}>{now.hour(hour).format("h:00 A")}</option>
+        <option key={hour} value={hour}>
+          {now.hour(hour).format("h:00 A")}
+        </option>
       ))}
     </select>
   )
