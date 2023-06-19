@@ -10,16 +10,20 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 import SignOut from "./components/SignOut"
 
 // download headwind extension to autosort classnames so we see the same thing
-export default async function Home() {
+export default function Page() {
+  return <Home />
+}
+
+function Home() {
   const supabase = createServerComponentClient({ cookies })
 
-  const { data: posts } = await supabase.from("posts").select("*")
+  // const { data: posts } = await supabase.from("posts").select("*")
 
   return (
     <div className="">
       <Landing />
       <div className="">
-        <pre>{JSON.stringify(posts, null, 2)}</pre>
+        {/* <pre>{JSON.stringify(posts, null, 2)}</pre> */}
       </div>
       <section className="w-full mb-10">
         <CardScroll />
