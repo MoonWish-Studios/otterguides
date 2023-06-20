@@ -127,7 +127,16 @@ export function Dashboard2(user: any) {
     <div className="w-full">
       {!onboarded ? (
         <div className="w-full flex flex-col items-center">
-          <h1 className="text-3xl">Almost done!</h1>
+          <div className="bg-sky-200 h-96 w-full absolute -z-40 overflow-clip">
+            <Image
+              src={"/home.png"}
+              height={100}
+              width={2000}
+              alt={"background"}
+              className="object-cover"
+            />
+          </div>
+          <h1 className="text-3xl mt-[8rem]">Almost done!</h1>
           <p className="w-4/12 text-center font-light mt-3 mb-5">
             Once you fill out this form you will be officially registered as a
             local guide! It should take around 5 minutes and is just a way for
@@ -220,9 +229,13 @@ export function Dashboard2(user: any) {
           </div>
         </div>
       )}
-      <div className="w-full flex items-center justify-center mb-10">
-        <SignOut />
-      </div>
+      {!onboarded ? (
+        ""
+      ) : (
+        <div className="w-full flex items-center justify-center mb-10">
+          <SignOut />
+        </div>
+      )}
     </div>
   )
 }
