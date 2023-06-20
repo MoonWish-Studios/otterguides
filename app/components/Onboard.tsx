@@ -84,7 +84,7 @@ export default function Onboard(user: any) {
     try {
       const { error } = await supabase.from("users").insert(userData)
       if (!error) {
-        router.push("/dashboard2")
+        router.push("/dashboard")
       } else {
         console.log(error)
       }
