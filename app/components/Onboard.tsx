@@ -26,6 +26,10 @@ const USER_DATA_INITIAL_STATE = {
   bio: "",
   interests: "",
   why: "",
+  one_hour: "",
+  two_hour: "",
+  three_hour: "",
+  five_hour: "",
 }
 
 export default function Onboard(user: any) {
@@ -106,8 +110,8 @@ export default function Onboard(user: any) {
       {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
       {questNum == 0 ? (
         <>
-          <div className="mx-20 mt-8 flex flex-col items-center">
-            <h1 className="text-3xl w-8/12 text-center mb-8">
+          <div className="md:mx-20 mx-10 mt-8 flex flex-col justify-center items-center">
+            <h1 className="md:text-3xl text-2xl md:w-8/12 w-full text-center mb-8">
               Here is an example card of how the information you provide will
               fit in
             </h1>
@@ -118,11 +122,11 @@ export default function Onboard(user: any) {
               height={800}
               alt={"Example"}
             />
-            <p className="w-7/12 mt-8 mb-3 text-center font-light">
+            <p className="w-10/12 md:w-7/12 mt-8 mb-3 text-center font-light">
               Any of the information you provide will be used soley for the
               purpose of giving travelers a better idea of who you are.
             </p>
-            <div className="w-full mt-3 pr-10 flex justify-end">
+            <div className="w-full mt-3 md:pr-10  pr-0 flex justify-center md:justify-end">
               <PlainButton action={forward}>Continue</PlainButton>
             </div>
           </div>
@@ -130,11 +134,11 @@ export default function Onboard(user: any) {
       ) : questNum == 1 ? (
         <div className="w-full flex flex-col items-center">
           <h1 className="text-3xl">The Basics</h1>
-          <p className="w-4/12 text-center font-light mt-3">
+          <p className="md:w-4/12 w-10/12 text-center font-light mt-3">
             Don't worry we won't spam you or anything. Your number will be
             private; it is just for us to have in case of any emergencies.
           </p>
-          <div className="mx-20 w-4/12 mt-8 flex flex-col space-y-3">
+          <div className="mx-20 md:w-4/12 w-10/12 mt-8 flex flex-col space-y-3">
             <InputBox
               label="First Name"
               name="f_name"
@@ -180,12 +184,12 @@ export default function Onboard(user: any) {
       ) : questNum == 2 ? (
         <div className="w-full flex flex-col items-center">
           <h1 className="text-3xl">Work Stuff</h1>
-          <p className="w-4/12 text-center font-light mt-3">
+          <p className="md:w-4/12 w-10/12 text-center font-light mt-3">
             This helps travelers get to know you a little better! If you want
             you can skip the name of the company but it is recommended as it
             adds a little more credibility to your profile
           </p>
-          <div className="mx-20 w-4/12 mt-8 flex flex-col space-y-3">
+          <div className="mx-20 md:w-4/12 w-10/12 mt-8 flex flex-col space-y-3">
             <h1 className="text-xl font-[400]">
               What is your current occupation/employment status?
             </h1>
@@ -229,11 +233,11 @@ export default function Onboard(user: any) {
       ) : questNum == 3 ? (
         <div className="w-full flex flex-col items-center">
           <h1 className="text-3xl">Hola, Hello, Salut!</h1>
-          <p className="w-4/12 text-center font-light mt-3">
+          <p className="md:w-4/12 w-10/12 text-center font-light mt-3">
             Our travelers come from all around the world so having someone who
             speaks a common language would make it a lot easier to get around!
           </p>
-          <div className="mx-20 w-4/12 mt-8 flex flex-col space-y-3">
+          <div className="mx-20 md:w-4/12 w-10/12 mt-8 flex flex-col space-y-3">
             <h1 className="text-xl font-[400]">
               What languages can you speak and understand?
             </h1>
@@ -265,12 +269,12 @@ export default function Onboard(user: any) {
       ) : questNum == 4 ? (
         <div className="w-full flex flex-col items-center">
           <h1 className="text-3xl">About you</h1>
-          <p className="w-4/12 text-center font-light mt-3">
+          <p className="md:w-4/12 w-10/12 text-center font-light mt-3">
             The more you write the better! Potential travelers will probably
             learn the most about you from this bio so try to give them a good
             understanding of who you are.
           </p>
-          <div className="mx-20 w-4/12 mt-8 flex flex-col space-y-3">
+          <div className="mx-20 md:w-4/12 w-10/12 mt-8 flex flex-col space-y-3">
             <h1 className="text-xl font-[400]">
               Introduce yourself to a potential traveler!
             </h1>
@@ -302,12 +306,12 @@ export default function Onboard(user: any) {
       ) : questNum == 5 ? (
         <div className="w-full flex flex-col items-center">
           <h1 className="text-3xl">Your Interests</h1>
-          <p className="w-4/12 text-center font-light mt-3">
+          <p className="md:w-4/12 w-10/12 text-center font-light mt-3">
             Our travelers want to hear about some of the interest you have! We
             all love going down rabbit holes in topics we're interested in
             whether it be yoga, anime, sports, or something!
           </p>
-          <div className="mx-20 w-4/12 mt-8 flex flex-col space-y-3">
+          <div className="mx-20 md:w-4/12 w-10/12 mt-8 flex flex-col space-y-3">
             <h1 className="text-xl font-[400]">
               What are your interests or hobbies?
             </h1>
@@ -339,12 +343,12 @@ export default function Onboard(user: any) {
       ) : questNum == 6 ? (
         <div className="w-full flex flex-col items-center">
           <h1 className="text-3xl">Pictures!</h1>
-          <p className="w-4/12 text-center font-light mt-3">
+          <p className="md:w-4/12 w-10/12 text-center font-light mt-3">
             This will let travelers put a face on your profile. The picture is
             soley for the purpose of showing our travelers that you are a real
             person and someone they can trust!
           </p>
-          <div className="mx-20 w-4/12 mt-8 flex flex-col space-y-3">
+          <div className="mx-20 md:w-4/12 w-10/12 mt-8 flex flex-col space-y-3">
             <h1 className="text-xl font-[400]">Upload a photo of yourself!</h1>
             <input
               type="file"
@@ -367,14 +371,14 @@ export default function Onboard(user: any) {
           </div>
         </div>
       ) : (
-        <div className="w-full flex flex-col items-center">
+        <div className="w-full flex flex-col items-center mb-8">
           <h1 className="text-3xl">Last Step!</h1>
-          <p className="w-4/12 text-center font-light mt-3">
+          <p className="md:w-4/12 w-10/12 text-center font-light mt-3">
             We want to hear about why you decided to be a guide for Otter
             Guides. Any answer is a good answer whether it's meeting new people,
             making some money on the side, or something else!
           </p>
-          <div className="mx-20 w-4/12 mt-8 flex flex-col space-y-3">
+          <div className="mx-20 md:w-4/12 w-10/12 mt-8 flex flex-col space-y-3">
             <h1 className="text-xl font-[400]">
               Why do you want to become a local guide for Otter Guides
             </h1>
@@ -388,7 +392,53 @@ export default function Onboard(user: any) {
               handleChange={handleChange}
             />
 
-            <div className="w-full pt-10 flex justify-between">
+            <h1 className="text-xl font-[400]">Set your prices</h1>
+            <h1 className="text-sm font-[300]">
+              Note: The price is completely up to you! We will have a 5+ hour
+              tour option in a future update
+            </h1>
+            <h1 className="text-base">1 hour tour</h1>
+            <InputBox
+              label=""
+              name="one_hour"
+              placeholder="$50"
+              type="text"
+              value={userData.one_hour}
+              statusCompleted={userData.f_name ? true : false}
+              handleChange={handleChange}
+            />
+            <h1 className="text-base">2 hour tour</h1>
+            <InputBox
+              label=""
+              name="two_hour"
+              placeholder="$90"
+              type="text"
+              value={userData.two_hour}
+              statusCompleted={userData.f_name ? true : false}
+              handleChange={handleChange}
+            />
+            <h1 className="text-base">3 hour tour</h1>
+            <InputBox
+              label=""
+              name="three_hour"
+              placeholder="$130"
+              type="text"
+              value={userData.three_hour}
+              statusCompleted={userData.f_name ? true : false}
+              handleChange={handleChange}
+            />
+            <h1 className="text-base">5 hour tour</h1>
+            <InputBox
+              label=""
+              name="five_hour"
+              placeholder="$160"
+              type="text"
+              value={userData.five_hour}
+              statusCompleted={userData.f_name ? true : false}
+              handleChange={handleChange}
+            />
+
+            <div className="w-full pt-10 flex justify-between ">
               <button onClick={backward}>
                 <Image
                   src={"/chev-left.png"}
@@ -404,62 +454,6 @@ export default function Onboard(user: any) {
           </div>
         </div>
       )}
-
-      <div className="inputs  flex flex-col">
-        {/* <InputBox
-          label="Company Name"
-          name="company"
-          placeholder="John"
-          type="text"
-          statusCompleted={userData.f_name ? true : false}
-          handleChange={handleChange}
-        />
-        <InputBox
-          label="Employment"
-          name="employment"
-          placeholder="John"
-          type="text"
-          statusCompleted={userData.f_name ? true : false}
-          handleChange={handleChange}
-        />
-        <InputBox
-          label="Languages"
-          name="languages"
-          placeholder="John"
-          type="text"
-          statusCompleted={userData.f_name ? true : false}
-          handleChange={handleChange}
-        />
-        <div>{userData.languages}</div>
-        <LargeInputBox
-          label="About you"
-          name="bio"
-          placeholder="John"
-          type="textarea"
-          statusCompleted={userData.f_name ? true : false}
-          handleChange={handleChange}
-        />
-        <div>{userData.bio}</div>
-        <InputBox
-          label="Interests"
-          name="interests"
-          placeholder="John"
-          type="text"
-          statusCompleted={userData.f_name ? true : false}
-          handleChange={handleChange}
-        />
-        <InputBox
-          label="Why do you want to become a guide"
-          name="why"
-          placeholder="John"
-          type="text"
-          statusCompleted={userData.f_name ? true : false}
-          handleChange={handleChange}
-        /> */}
-        {/* <button className="btn mt-4 btn-primary" onClick={handleSubmit}>
-          Save
-        </button> */}
-      </div>
     </div>
   )
 }

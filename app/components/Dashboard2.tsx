@@ -41,6 +41,10 @@ const USER_DATA_INITIAL_STATE = {
   bio: "",
   interests: "",
   why: "",
+  one_hour: "",
+  two_hour: "",
+  three_hour: "",
+  five_hour: "",
 }
 
 export function Dashboard2(user: any) {
@@ -126,16 +130,7 @@ export function Dashboard2(user: any) {
   return (
     <div className="w-full">
       {!onboarded ? (
-        <div className="w-full flex flex-col items-center">
-          <div className="bg-sky-200 h-96 w-full absolute -z-40 overflow-clip">
-            <Image
-              src={"/home.png"}
-              height={100}
-              width={2000}
-              alt={"background"}
-              className="object-cover"
-            />
-          </div>
+        <div className="w-full flex bg-[url('/home.png')] h-screen bg-cover flex-col items-center">
           <h1 className="text-3xl mt-[8rem]">Almost done!</h1>
           <p className="w-4/12 text-center font-light mt-3 mb-5">
             Once you fill out this form you will be officially registered as a
@@ -221,6 +216,39 @@ export function Dashboard2(user: any) {
               value={userData[0].email}
               statusCompleted={userData.f_name ? true : false}
             />
+            <div className="mt-3 mb-1">Your Prices</div>
+            <div className="flex flex-row ">
+              <StaticBox
+                label="1 hour"
+                name="one_hour"
+                type="text"
+                value={`$${userData[0].one_hour}`}
+                statusCompleted={userData.f_name ? true : false}
+              />
+              <StaticBox
+                label="2 hour"
+                name="two_hour"
+                type="text"
+                value={`$${userData[0].two_hour}`}
+                statusCompleted={userData.f_name ? true : false}
+              />
+            </div>
+            <div className="flex flex-row ">
+              <StaticBox
+                label="3 hour"
+                name="three_hour"
+                type="text"
+                value={`$${userData[0].three_hour}`}
+                statusCompleted={userData.f_name ? true : false}
+              />
+              <StaticBox
+                label="5 hour"
+                name="five_hour"
+                type="text"
+                value={`$${userData[0].five_hour}`}
+                statusCompleted={userData.f_name ? true : false}
+              />
+            </div>
           </div>
           <div>
             {/* <Calendar />

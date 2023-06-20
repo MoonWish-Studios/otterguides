@@ -51,6 +51,10 @@ export interface UserDataTypes {
   bio: string
   interests: string
   why: string
+  one_hour: string
+  two_hour: string
+  three_hour: string
+  five_hour: string
 }
 export interface VehicleDataTypes {
   owner_id: string

@@ -35,7 +35,7 @@ export function PlainButton({
 }) {
   return (
     <button
-      className={`"mt-8 mr-3 bg-black text-white inline-block text-center max-w-fit
+      className={`"mt-8 mr-0 bg-black text-white inline-block text-center max-w-fit
         font-normal text-sm transition ease-in-out duration-100
       box-content hover:scale-105 tracking-wider rounded-xl px-[45px] my-0 py-[10px] ${className} `}
       onClick={action}
