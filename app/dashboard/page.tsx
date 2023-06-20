@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import createClient from "../supabase-server"
-import SignOut from "../components/SignOut"
+
 import { useAuth } from "../components/AuthProvider"
 import Auth from "../components/Auth"
 import { Dashboard2 } from "../components/Dashboard2"

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react"
 import FullCalendar from "@fullcalendar/react"
 import daygrid from "@fullcalendar/daygrid"
 import interactionPlugin from "@fullcalendar/interaction"
+import SignOut from "./SignOut"
 import {
   Field,
   Form,
@@ -130,6 +131,7 @@ export function Dashboard() {
         slotLaneClassNames="text-cyan-900"
         dateClick={(e) => console.log(e)}
       />
+      <SignOut />
     </div>
   )
 }

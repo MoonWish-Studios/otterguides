@@ -9,18 +9,22 @@ const pacifico = Pacifico({ weight: "400", subsets: ["latin"] })
 
 export default function Navbar({ className }: { className?: string }) {
   const pathname = usePathname()
-  const reverse = pathname === "/" ? true : false
+  const reverse = pathname === "/" || pathname === "/dashboard" ? true : false
   const transparent = reverse ? "absolute top-0" : "relative"
 
   const isHomePage = pathname === "/"
+  const isDashboard = pathname === "/dashboard"
 
-  const logoColor = isHomePage ? "text-white" : "text-cyan-400"
+  const logoColor = isHomePage || isDashboard ? "text-white" : "text-cyan-400"
+
   const menuPath = isHomePage ? "menu-white.svg" : "menu-black.svg"
   // set menu state
   const [open, setOpen] = useState(false)
 
   return (
-    <div className={`${transparent} lg:mx-auto  w-full z-[999] ${className} `}>
+    <div
+      className={`${transparent} lg:mx-auto bg-none  w-full z-[999] ${className} `}
+    >
       <div className="flex items-center justify-between py-1 ">
         {/* Logo */}
         <h1 className={pacifico.className}>
@@ -61,14 +65,14 @@ export default function Navbar({ className }: { className?: string }) {
           } absolute left-1/2 top-36 transform md:hidden -translate-x-1/2  backdrop-filter backdrop-blur-[14px] border-2 border-cyan-100 bg-opacity-10 
            -translate-y-16  flex flex-col gap-2 z-50 p-4 w-[80%] text-neutral-50 font-bold rounded-lg`}
         >
-          <NavLink href="/guide" text="Be a guide" currentPath={pathname} />
+          <NavLink href="/login" text="Guides" currentPath={pathname} />
           <NavLink href="/contact" text="Contact us" currentPath={pathname} />
         </nav>
         {/* Desktop Navbar */}
         <nav
           className={`items-center hidden md:flex md:flex-row md:gap-3 md:px-10`}
         >
-          <NavLink href="/guide" text="Be a guide" currentPath={pathname} />
+          <NavLink href="/login" text="Guides" currentPath={pathname} />
           <NavLink href="/contact" text="Contact us" currentPath={pathname} />
         </nav>
       </div>

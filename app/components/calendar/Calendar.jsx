@@ -29,24 +29,48 @@ export const Scheduler = ({ user }) => {
   const now = useCalendarStore((state) => state.now)
 
   return (
-    <div className="mx-auto w-fit flex my-40 ">
-      <div className="flex flex-col gap-y-3 border-r pr-4 mr-4">
-        {scheduler.schedule.map((option, id) => (
-          <ScheduleOption
-            key={id}
-            {...option}
-            now={now}
-            scheduler={scheduler}
-          />
-        ))}
+    <div className="mt-24 mb-20 flex items-center flex-col">
+      <h1 className="text-xl font-medium">Your Calendar</h1>
+      <div className="mx-auto w-fit md:flex-row flex-col items-center flex mt-8 ">
+        <div className="flex flex-col gap-y-3 border-r pr-0 md:mb-0 mb-5 mr-0 md:pr-4 md:mr-4">
+          {scheduler.schedule.map((option, id) => (
+            <ScheduleOption
+              key={id}
+              {...option}
+              now={now}
+              scheduler={scheduler}
+            />
+          ))}
+          <button
+            className="flex-none md:block hidden text-center rounded-xl bg-cyan-400 text-white  lg:max-w-xl px-6 py-2.5 text-sm md:text-base hover:bg-cyan-200 transition "
+            onClick={() => scheduler.saveOverridesToDatabase(user)}
+          >
+            Save{" "}
+          </button>
+        </div>
+        <Calendar />
         <button
-          className="flex-none text-center rounded-xl bg-cyan-300 lg:max-w-xl px-6 py-2.5 text-sm md:text-base hover:bg-cyan-200 transition "
+          className="flex-none block md:hidden w-full mt-5 text-center rounded-xl bg-cyan-400 text-white  lg:max-w-xl px-6 py-2.5 text-sm md:text-base hover:bg-cyan-200 transition "
           onClick={() => scheduler.saveOverridesToDatabase(user)}
         >
           Save{" "}
         </button>
       </div>
-      <Calendar />
+      <div className="w-full mt-5 pl-10">
+        <h1 className=" text-cyan-400 mb-3">Calendar Guide</h1>
+        <div className="text-sm w-10/12 space-y-1">
+          <p>-Uncheck the boxes for days you aren't free</p>
+          <p>
+            -If a checked box displays "Sun 5:00 PM" that means you can do tours
+            after 5:00 PM on Sundays
+          </p>
+          <p>
+            -Manually set unavailable dates by clicking on specific dates on the
+            calendar
+          </p>
+          <p>-Unavailable dates will be greyed out on the calendar</p>
+        </div>
+      </div>
     </div>
   )
 }

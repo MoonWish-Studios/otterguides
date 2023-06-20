@@ -5,6 +5,7 @@ import { InputBox } from "./InputTypes"
 import { useRouter, useSearchParams } from "next/navigation"
 import supabase from "../supabase-browser"
 import FullCalendar from "@fullcalendar/react"
+import SignOut from "./SignOut"
 import Button from "./Button"
 import Image from "next/image"
 import { StaticBox, LargeStaticBox } from "./InputTypes"
@@ -26,6 +27,7 @@ import {
 } from "../components/calendar/constants"
 import useScheduleStore from "./calendar/useStore"
 import dayjs from "dayjs"
+import { Sign } from "crypto"
 
 const USER_DATA_INITIAL_STATE = {
   user_id: "",
@@ -122,16 +124,6 @@ export function Dashboard2(user: any) {
   }, [])
 
   return (
-    // <div className="w-full">
-    //   <div className="bg-sky-200 h-96 w-full"></div>
-    //   <div className="max-w-xl border p-8 mx-auto rounded-lg flex flex-col gap-3"></div>
-    //   {!onboarded ? (
-    //     <a href="/onboard">GO ONBOARD</a>
-    //   ) : (
-    //     <div>{userData[0].email}</div>
-    //   )}
-    //   <div>User info</div>
-    // </div>
     <div className="w-full">
       {!onboarded ? (
         <div className="w-full flex flex-col items-center">
@@ -147,17 +139,28 @@ export function Dashboard2(user: any) {
         </div>
       ) : (
         <div className="flex flex-col items-center">
-          <div className="bg-sky-200 h-96 w-full absolute -z-40"></div>
-          <div className="PROFILE shadow-lg w-[35rem] p-16 bg-white rounded-xl mt-32">
+          <div className="bg-sky-200 h-96 w-full absolute -z-40 overflow-clip">
+            <Image
+              src={"/home.png"}
+              height={100}
+              width={2000}
+              alt={"background"}
+              className="object-cover"
+            />
+          </div>
+          <div className="PROFILE shadow-lg md:w-[38rem] md:p-20 w-full p-10  bg-white rounded-xl mt-32">
             <h1 className="border-b-2 text-xl pb-3">Your Profile</h1>
-            <div className="w-full mt-8 justify-center flex">
-              <Image
-                src={`https://lzzlsndqxlmpjoonmjfd.supabase.co/storage/v1/object/public/guides/${user.user.id}/${images[0]?.name}`}
-                height={100}
-                width={100}
-                alt={"Profile Pic"}
-                className="object-contain"
-              />
+
+            <div className="w-full justify-center flex my-5">
+              <div className="rounded-full overflow-hidden h-24 w-24 ">
+                <Image
+                  src={`https://lzzlsndqxlmpjoonmjfd.supabase.co/storage/v1/object/public/guides/${user.user.id}/${images[0]?.name}`}
+                  height={100}
+                  width={100}
+                  alt="Profile Pic"
+                  className="object-cover "
+                />
+              </div>
             </div>
             <StaticBox
               label="First Name"
@@ -192,14 +195,14 @@ export function Dashboard2(user: any) {
               name="bio"
               placeholder="Hey! My name is Kamari Johnson and I'm a soccer coach near Long Beach. I've lived in Long Beach for about 5 years now and so I'd say I'm pretty familiar with the area. Some of my favorite things to do is go to the beach, yoga, and try new foods. I love meeting new people and learning about different backgrounds and cultures. As your guide I'd be sure to take your to some of my favorite local restaurants and show you the Long Beach culture"
               type="textarea"
-              value={userData.bio}
+              value={userData[0].bio}
               statusCompleted={userData.f_name ? true : false}
             />
             <StaticBox
               label="Interests/Hobbies"
               name="interests"
               type="text"
-              value={userData.interests}
+              value={userData[0].interests}
               statusCompleted={userData.f_name ? true : false}
             />
             <StaticBox
@@ -217,6 +220,9 @@ export function Dashboard2(user: any) {
           </div>
         </div>
       )}
+      <div className="w-full flex items-center justify-center mb-10">
+        <SignOut />
+      </div>
     </div>
   )
 }
