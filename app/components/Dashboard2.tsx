@@ -219,14 +219,14 @@ export function Dashboard2(user: any) {
             <div className="mt-3 mb-1">Your Prices</div>
             <div className="flex flex-row ">
               <StaticBox
-                label="1 hour"
+                label="1 hour tour"
                 name="one_hour"
                 type="text"
                 value={`$${userData[0].one_hour}`}
                 statusCompleted={userData.f_name ? true : false}
               />
               <StaticBox
-                label="2 hour"
+                label="2 hour tour"
                 name="two_hour"
                 type="text"
                 value={`$${userData[0].two_hour}`}
@@ -235,14 +235,14 @@ export function Dashboard2(user: any) {
             </div>
             <div className="flex flex-row ">
               <StaticBox
-                label="3 hour"
+                label="3 hour tour"
                 name="three_hour"
                 type="text"
                 value={`$${userData[0].three_hour}`}
                 statusCompleted={userData.f_name ? true : false}
               />
               <StaticBox
-                label="5 hour"
+                label="5 hour tour"
                 name="five_hour"
                 type="text"
                 value={`$${userData[0].five_hour}`}
