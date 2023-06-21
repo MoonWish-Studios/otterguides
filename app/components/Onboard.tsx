@@ -20,6 +20,7 @@ const USER_DATA_INITIAL_STATE = {
   f_name: "",
   l_name: "",
   phone: "",
+  city: "",
   company: "",
   employment: "",
   languages: "",
@@ -163,6 +164,15 @@ export default function Onboard(user: any) {
               placeholder="(714) 330 9387"
               type="text"
               value={userData.phone}
+              statusCompleted={userData.f_name ? true : false}
+              handleChange={handleChange}
+            />
+            <InputBox
+              label="City to be guide for"
+              name="city"
+              placeholder="Long Beach, CA"
+              type="text"
+              value={userData.city}
               statusCompleted={userData.f_name ? true : false}
               handleChange={handleChange}
             />

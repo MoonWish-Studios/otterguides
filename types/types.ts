@@ -45,6 +45,7 @@ export interface UserDataTypes {
   f_name: string
   l_name: string
   phone: string
+  city: string
   company: string
   employment: string
   languages: string

@@ -35,6 +35,7 @@ const USER_DATA_INITIAL_STATE = {
   f_name: "",
   l_name: "",
   phone: "",
+  city: "",
   company: "",
   employment: "",
   languages: "",
@@ -192,6 +193,13 @@ export function Dashboard2(user: any) {
               name="phone"
               type="text"
               value={userData[0].phone}
+              statusCompleted={userData.f_name ? true : false}
+            />
+            <StaticBox
+              label="City"
+              name="city"
+              type="text"
+              value={userData[0].city}
               statusCompleted={userData.f_name ? true : false}
             />
             <LargeStaticBox
