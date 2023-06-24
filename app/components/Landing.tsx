@@ -75,7 +75,7 @@ export default function Landing() {
           <div className="text-sm text-white mb-3 ml-1 md:px-0 sm:px-28 px-8 md:w-5/12">
             Enter your email to be notified when we launch and test our beta!
           </div>
-          <div className="flex flex-row gap-2 ">
+          <div className="flex sm:flex-row gap-2 flex-col items-center ">
             <div className=" flex flex-col ">
               {/* <label className="">
                 <span className="font-[250] text-sm">Email</span>
