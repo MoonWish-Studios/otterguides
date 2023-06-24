@@ -1,17 +1,22 @@
 "use client"
 import Image from "next/image"
 import Button from "./Button"
-import { useRef } from "react"
+import supabase from "../supabase-browser"
+import { useRef, useState } from "react"
 import { useInView } from "react-intersection-observer"
 import HowBlock from "./HowBlock"
+import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import { useAnimation } from "framer-motion"
 import { Pacifico } from "next/font/google"
+import { InputBox } from "./InputTypes"
 const pacifico = Pacifico({ weight: "400", subsets: ["latin"] })
 import React from "react"
 
 // download headwind extension to autosort classnames so we see the same thing
 export default function Landing() {
+  const router = useRouter()
+  const [email, setEmail] = useState<any>("")
   const howItWorks = useRef(null)
   const { ref, inView } = useInView({
     threshold: 0.3,
@@ -19,26 +24,27 @@ export default function Landing() {
 
   const animation = useAnimation()
 
-  useEffect(() => {
-    if (inView) {
-      animation.start({
-        opacity: 1,
-        transition: {
-          duration: 0.5,
-          opacity: 0,
-        },
-      })
-    }
-    if (!inView) {
-      animation.start({ opacity: 0 })
-    }
-  }, [inView])
-
   const scrollDown = (elementRef: any) => {
     window.scrollTo({
       top: elementRef.current.offsetTop,
       behavior: "smooth",
     })
+  }
+  const handleChange = (e: any) => {
+    setEmail(e.target.value)
+  }
+  const handleSubmit = async () => {
+    try {
+      const { error } = await supabase.from("emails").insert({ email: email })
+      if (!error) {
+        setEmail("")
+        router.refresh()
+      } else {
+        console.log(error)
+      }
+    } catch (error: any) {
+      alert(error.message)
+    }
   }
 
   return (
@@ -52,7 +58,7 @@ export default function Landing() {
           alt=""
         />
         <div
-          className="Text-Section flex flex-col md:pl-32 md:mt-0 mt-28 md:text-left text-center 
+          className="Text-Section flex flex-col lg:pl-32 md:pl-16 md:mt-0 mt-28 md:text-left text-center 
       items-center md:items-start "
         >
           <h1
@@ -62,19 +68,40 @@ export default function Landing() {
             Your local guide in an{" "}
             <span className={pacifico.className}>Otter</span> city
           </h1>
-          <p className="text-cyan-900 md:w-4/12 ml-1 my-6 md:px-0 sm:px-28 px-10 font-pacifico ">
+          <p className="text-cyan-900 md:w-5/12 ml-1 my-6 md:px-0 sm:px-28 px-10 font-pacifico ">
             Giving every traveler the confidence to travel safely and immerse
             themselves in new cultures
           </p>
-          <button
-            onClick={() => scrollDown(howItWorks)}
-            className={`inline-block text-center max-w-fit bg-white
+          <div className="text-sm text-white mb-3 ml-1 md:px-0 sm:px-28 px-8 md:w-5/12">
+            Enter your email to be notified when we launch and test our beta!
+          </div>
+          <div className="flex flex-row gap-2 ">
+            <div className=" flex flex-col ">
+              {/* <label className="">
+                <span className="font-[250] text-sm">Email</span>
+              </label> */}
+              <input
+                className={`
+               border-b py-2 px-4 w-[16.5rem] bg-transparent placeholder:text-gray-100 tracking-wider outline-none border-white text-white
+                 `}
+                type="text"
+                name="email"
+                value={email}
+                placeholder={"youremail@example.com"}
+                onChange={handleChange}
+                required={true}
+              />
+            </div>
+
+            <button
+              onClick={handleSubmit}
+              className={`inline-block text-center max-w-fit bg-white
         font-normal text-sm transition ease-in-out duration-100
-      box-content hover:scale-105 rounded-2xl my-0 px-[45px] py-[12px]`}
-          >
-            Learn More
-          </button>
-          {/* <Button className="px-[45px] py-[12px]">Learn More</Button> */}
+      box-content hover:scale-105 rounded-2xl my-0 px-[40px] py-[11px]`}
+            >
+              Join Waitlist!
+            </button>
+          </div>
         </div>
       </div>
       <div

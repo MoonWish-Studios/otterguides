@@ -65,14 +65,14 @@ export default function Navbar({ className }: { className?: string }) {
           } absolute left-1/2 top-36 transform md:hidden -translate-x-1/2  backdrop-filter backdrop-blur-[14px] border-2 border-cyan-100 bg-opacity-10 
            -translate-y-16  flex flex-col gap-2 z-50 p-4 w-[80%] text-neutral-50 font-bold rounded-lg`}
         >
-          <NavLink href="/login" text="Guides" currentPath={pathname} />
+          <NavLink href="/guide" text="Demo" currentPath={pathname} />
           <NavLink href="/contact" text="Contact us" currentPath={pathname} />
         </nav>
         {/* Desktop Navbar */}
         <nav
           className={`items-center hidden md:flex md:flex-row md:gap-3 md:px-10`}
         >
-          <NavLink href="/login" text="Guides" currentPath={pathname} />
+          <NavLink href="/guide" text="Demo" currentPath={pathname} />
           <NavLink href="/contact" text="Contact us" currentPath={pathname} />
         </nav>
       </div>
