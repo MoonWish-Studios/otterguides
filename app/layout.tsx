@@ -21,6 +21,12 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <title>Otter Guides</title>
+      <meta content="width=device-width, initial-scale=1" name="viewport" />
+      <meta name="description" content="Travel with Otter Guides" />
+      <meta property="og:image" content="/otterlanding.png" />
+      <link rel="icon" href="/otterguideslogo.png" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
       {/*
         <head /> will contain the components returned by the nearest parent
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
