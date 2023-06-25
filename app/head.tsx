@@ -4,7 +4,15 @@ export default function Head() {
       <title>Otter Guides</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
       <meta name="description" content="Travel with Otter Guides" />
-      <meta property="og:image" content="/otterlanding.png" />
+      <meta property="og:url" content="https://www.otterguides.com/login" />
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="Otter Guides" />
+      <meta property="og:description" content="Travel with Otter Guides" />
+      <meta
+        property="og:image"
+        content="https://otterguides.com/otterlanding.png"
+      />
+
       <link rel="icon" href="/Ologo.png" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" />
